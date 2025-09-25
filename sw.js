@@ -1,10 +1,15 @@
+const APP_SHELL_CACHE = "appShell_v1.0";
+const DYNAMIC_CACHE = "dynamic_v1.0";
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("appShell_v1.0").then((cache) => {
+    caches.open(APP_SHELL_CACHE).then((cache) => {
       return cache.addAll([
         "/src/index.css",
         // "/src/components/views/home/Home.jsx",
-        // "/src/components/views/home/home.module.css"
+        // "/src/components/views/home/home.module.css",
+        "src/components/views/offline/Offline.jsx",
+        "src/components/views/offline/offline.module.css",
       ]);
     })
   );
@@ -13,11 +18,21 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    Promise.all([caches.delete("appShell"), caches.delete("dynamic")])
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key !== APP_SHELL_CACHE && key !== DYNAMIC_CACHE)
+            .map((key) => caches.delete(key))
+        )
+      )
   );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
+  if (event.request.url.startsWith("ws")) return;
   if (event.request.method === "GET") {
     event.respondWith(
       fetch(event.request)
@@ -26,9 +41,8 @@ self.addEventListener("fetch", (event) => {
           if (event.request.url.startsWith("http")) {
             caches.match(event.request).then((cache) => {
               if (!cache) {
-                caches.open("dynamic").then((cacheDyn) => {
-                  // Clonamos porque una Response solo se puede usar una vez
-                  cacheDyn.put(event.request, networkResponse.clone());
+                caches.open(DYNAMIC_CACHE).then((cache) => {
+                  cache.put(event.request, networkResponse.clone());
                 });
               }
             });
@@ -36,8 +50,11 @@ self.addEventListener("fetch", (event) => {
           return networkResponse.clone();
         })
         .catch(() => {
-          // Si falla la red, tratar de devolver lo que tengamos en caché
-          return caches.match(event.request);
+          // Si esta offline devolvemos el cache
+          return caches.match(event.request).then((res) => {
+            // Si no existe en caché, devolver un recurso offline
+            return res || caches.match("/offline");
+          });
         })
     );
   }

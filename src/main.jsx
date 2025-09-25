@@ -9,6 +9,7 @@ import Layout from "./components/layout/titles";
 import Login from "./components/views/session/Login";
 
 import Home from "./components/views/home/home";
+import Offline from "./components/views/offline/Offline";
 
 navigator.serviceWorker.register("../sw.js");
 
@@ -20,6 +21,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* Navegacion normal */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+
+          <Route path="/offline" element={<Offline />} />
+        
         </Routes>
       </Layout>
     </BrowserRouter>
