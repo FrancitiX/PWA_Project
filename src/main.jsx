@@ -13,6 +13,12 @@ import Offline from "./components/views/offline/Offline";
 
 navigator.serviceWorker.register("../sw.js");
 
+let db = window.indexedDB.open("database", 1);
+db.onupgradeneeded = function (event) {
+  let result = event.target.result;
+  result.createObjectStore("table", { autoIncrement: true });
+};
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

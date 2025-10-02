@@ -60,5 +60,23 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
-// self.addEventListener('', event=>{});
+self.addEventListener("sync", event => {
+
+  let db = window.indexedDB.open("database");
+  db.onsuccess = event => {
+    let result = event.target.result;
+    let transaction = result.transaction("table", "readwrite");
+    let obj = transaction.objectStore("table");
+
+    const resultado = obj.get(1);
+
+    // const resultado = obj.add({ name: "Melisaa", age: 19 });
+
+    // const resultado = obj.delete(2);
+
+    resultado.onsuccess = (event) => {
+      console.log(event.target.result);
+    };
+  };
+});
 // self.addEventListener('push', event=>{});
