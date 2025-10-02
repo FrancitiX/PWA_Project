@@ -1,4 +1,5 @@
 import React from 'react'
+import { InputSearch } from '../inputs/Inputs'
 
 function SubNav() {
   return (
@@ -8,7 +9,10 @@ function SubNav() {
         <div className="item">Categorías</div>
         <div className="item">Más</div>
         <div>
-            
+            <InputSearch 
+                value=""
+                onChange={() => {}}
+            />
         </div>
     </nav>
   )

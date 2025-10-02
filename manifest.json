@@ -1,0 +1,37 @@
+{
+  "name": "Gafoa",
+  "short_name": "Gafoa",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "rgba(32, 32, 32, 1)",
+  "theme_color": "rgb(180, 120, 120)",
+  "orientation": "any",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "/icons/Gafoa_32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/Gafoa_64x64.ico",
+      "sizes": "64x64",
+      "type": "image/ico"
+    },
+    {
+      "src": "/icons/Gafoa_128x128.png",
+      "sizes": "128x128",
+      "type": "image/ico"
+    },
+    {
+      "src": "/icons/Gafoa_256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web"
+    }
+  ]
+}

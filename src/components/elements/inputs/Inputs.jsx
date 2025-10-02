@@ -13,7 +13,6 @@ function InputSearch({ value, onChange }) {
         onChange={onChange}
       />
       <i className={styles.icon}></i>
-      
     </div>
   );
 }
