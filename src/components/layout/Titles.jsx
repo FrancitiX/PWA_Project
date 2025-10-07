@@ -2,16 +2,16 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const titles = {
-  "/": "Home",
-  "/Singin": "Registrarse",
-  "/login": "Iniciar Sesión",
+  "/": "Home | Gafoa",
+  "/Singin": "Registrarse | Gafoa",
+  "/login": "Iniciar Sesión | Gafoa",
 };
 
 const Layout = ({ children }) => {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = titles[location.pathname] || "smartOrder";
+    document.title = titles[location.pathname] || "Gafoa";
   }, [location.pathname]);
 
   return children;

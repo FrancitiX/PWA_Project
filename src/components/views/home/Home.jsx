@@ -6,7 +6,7 @@ function home() {
   return (
     <App>
 
-      <main>
+      <main className={styles.main}>
         <div className={styles.carrousel}>Destacado</div>
         <div className={styles.offert}> Hola mundo</div>
         <div className={styles.recomendations}></div>

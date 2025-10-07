@@ -1,13 +1,14 @@
 import React from 'react'
 import { InputSearch } from '../inputs/Inputs'
+import styles from './header.module.css'
 
 function SubNav() {
   return (
-    <nav>
-        <div className="item">Explorar</div>
-        <div className="item">Recomendaciones</div>
-        <div className="item">Categorías</div>
-        <div className="item">Más</div>
+    <nav className={styles.subnav}>
+        <div className={styles.item}>Explorar</div>
+        <div className={styles.item}>Recomendaciones</div>
+        <div className={styles.item}>Categorías</div>
+        <div className={styles.item}>Más</div>
         <div>
             <InputSearch 
                 value=""
