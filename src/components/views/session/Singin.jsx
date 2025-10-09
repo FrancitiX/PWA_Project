@@ -5,7 +5,7 @@ import Footer from "../../elements/footer/Footer";
 import { Link } from "react-router-dom";
 import Logo from "/Gafoa.png";
 import { singin } from "../../../services/users";
-
+import { addUserToDB } from "../../../services/localData";
 
 function Singin() {
   const [step, setStep] = useState(0);
@@ -36,11 +36,15 @@ function Singin() {
       return;
     }
 
+    addUserToDB(formData);
     try {
       const response = await singin(formData);
       console.log("Registro exitoso:", response);
     } catch (error) {
       console.error("Error al registrar usuario:", error);
+      navigator.serviceWorker.ready.then((swRegistration) => {
+        return swRegistration.sync.register("sync-users");
+      });
     }
   };
 
@@ -49,9 +53,7 @@ function Singin() {
     if (step < 2) {
       if (
         step === 0 &&
-        (!formData.name ||
-          !formData.paternalName ||
-          !formData.maternalName)
+        (!formData.name || !formData.paternalName || !formData.maternalName)
       ) {
         alert("Por favor, completa todos los campos antes de continuar.");
         return;
@@ -213,7 +215,11 @@ function Singin() {
               >
                 Anterior
               </button>
-              <button type="button" className={styles.submitButton} onClick={nextStep}>
+              <button
+                type="button"
+                className={styles.submitButton}
+                onClick={nextStep}
+              >
                 {step === 2 ? "Registrarse" : "Siguiente"}
               </button>
             </div>
