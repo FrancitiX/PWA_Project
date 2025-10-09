@@ -13,6 +13,8 @@
   --textColor: 250, 250, 250, 0.8;
   --secondaryTextColor: 230, 230, 230, 0.8;
   --specialTextColor: 120, 225, 255;
+  --white: 255, 255, 255;
+  --black: 0, 0, 0;
 
   --primaryBG: 30, 30, 35;
   --secondaryBG: 34, 34, 34;

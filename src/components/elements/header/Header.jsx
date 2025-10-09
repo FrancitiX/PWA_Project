@@ -28,11 +28,11 @@ function Header() {
 
           <div className={styles.profileOptions}>
             <div>{/* <i className="fas fa-user"></i> */}</div>
-            <a href="#cart">
+            <Link to="#cart">
               <MdShoppingCart />
-            </a>
-            <a href="#login">Iniciar Sesión</a>
-            <a href="#register">Registrarse</a>
+            </Link>
+            <Link to="/login">Iniciar Sesión</Link>
+            <Link to="/singin">Registrarse</Link>
           </div>
         </nav>
       </div>
