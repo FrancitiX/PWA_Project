@@ -6,10 +6,13 @@ self.addEventListener("install", (event) => {
     caches.open(APP_SHELL_CACHE).then((cache) => {
       return cache.addAll([
         "/src/index.css",
-        // "/src/components/views/home/Home.jsx",
-        // "/src/components/views/home/home.module.css",
+        "/src/components/views/home/Home.jsx",
+        "/src/components/views/home/home.module.css",
         "src/components/views/offline/Offline.jsx",
         "src/components/views/offline/offline.module.css",
+        "public/Gafoa.png",
+        "src/components/views/session/Singin.jsx",
+        "src/components/views/session/session.module.css",
       ]);
     })
   );
@@ -60,23 +63,26 @@ self.addEventListener("fetch", (event) => {
   }
 });
 
-self.addEventListener("sync", event => {
+self.addEventListener("sync", (event) => {
+  if (event.tag === "sync-users") {
+    event.waitUntil(syncUsers());
+  }
+});
 
-  let db = window.indexedDB.open("database");
-  db.onsuccess = event => {
-    let result = event.target.result;
-    let transaction = result.transaction("table", "readwrite");
-    let obj = transaction.objectStore("table");
+async function syncUsers() {
+  const dbRequest = self.indexedDB.open("GafoaDB", 1);
+  dbRequest.onsuccess = (event) => {
+    const db = event.target.result;
+    const tx = db.transaction("user", "readonly");
+    const store = tx.objectStore("user");
+    const getAllRequest = store.getAll();
 
-    const resultado = obj.get(1);
-
-    // const resultado = obj.add({ name: "Melisaa", age: 19 });
-
-    // const resultado = obj.delete(2);
-
-    resultado.onsuccess = (event) => {
-      console.log(event.target.result);
+    getAllRequest.onsuccess = () => {
+      const users = getAllRequest.result;
+      console.log("Usuarios pendientes de sync:", users);
+      // Aquí podrías enviar al backend
     };
   };
-});
+}
+
 // self.addEventListener('push', event=>{});

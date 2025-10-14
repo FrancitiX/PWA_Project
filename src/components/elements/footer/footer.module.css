@@ -1,0 +1,84 @@
+.footer {
+    position: relative;
+    background-color: rgb(var(--footerBG));
+    color: rgb(var(--textColor));
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.firstContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.logoContainer {
+    height: 50px;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoContainer .logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logoImage {
+    width: 40px;
+    height: 40px;
+    aspect-ratio: 1 / 1;
+    filter: drop-shadow(0 0 5px rgba(var(--primaryColor), 0.5));
+    user-select: none;
+}
+
+.logoText {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgb(var(--primaryColor));
+    filter: drop-shadow(0 0 5px rgba(var(--primaryColor), 0.5));
+    user-select: none;
+}
+
+.firstContainer p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+
+.container {
+    width: 100%;
+    padding-top: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    gap: 1.5rem;
+}
+
+.container a {
+    color: rgb(var(--textColor));
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.container a:hover {
+    color: rgb(var(--primaryColor), 0.8);
+    filter: drop-shadow(0 0 5px rgba(var(--textColor)));
+}
+
+.footerCopyright {
+    width: 100%;
+    font-size: 0.9rem;
+    user-select: none;
+    text-align: center;
+    padding-bottom: 15px;
+}

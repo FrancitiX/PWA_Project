@@ -36,11 +36,9 @@ function home() {
 
   return (
     <App>
-      <main>
-        <div className={styles.carrousel}>
-          Destacado
-          <button onClick={() => test()}>si</button>
-        </div>
+
+      <main className={styles.main}>
+        <div className={styles.carrousel}>Destacado</div>
         <div className={styles.offert}> Hola mundo</div>
         <div className={styles.recomendations}></div>
       </main>
