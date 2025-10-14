@@ -42,6 +42,7 @@ function home() {
         <div className={styles.offert}> Hola mundo</div>
         <div className={styles.recomendations}></div>
       </main>
+      
     </App>
   );
 }
