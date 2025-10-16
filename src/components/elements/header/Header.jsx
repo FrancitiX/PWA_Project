@@ -3,15 +3,20 @@ import styles from "./header.module.css";
 import logo from "/Gafoa.png";
 import { MdShoppingCart } from "react-icons/md";
 import SubNav from "./SubNav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+
+  const goToHome = () => {
+    navigate("");
+  }
   return (
     <header className={styles.header}>
       <div className={styles.navContainer}>
         <nav className={styles.navbar}>
           <div className={styles.navOptions}>
-            <div className={styles.logo}>
+            <div className={styles.logo} onClick={goToHome}>
               <div className={styles.logoImage}>
                 <img src={logo} alt="Gafoa" />
               </div>
@@ -19,7 +24,7 @@ function Header() {
             </div>
 
             <div className={styles.navigationLinks}>
-              <Link to="#home">Tienda</Link>
+              <Link to="/">Tienda</Link>
               <Link to="#products">Biblioteca</Link>
               <Link to="#about">Acerca de</Link>
               <Link to="#contact">Contacto</Link>
