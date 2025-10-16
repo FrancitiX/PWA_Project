@@ -85,4 +85,20 @@ async function syncUsers() {
   };
 }
 
-// self.addEventListener('push', event=>{});
+self.addEventListener("push", (event) => {
+  const data = event.data ? event.data.json() : {};
+  const title = data.title || "Notificación";
+  const options = {
+    body: data.body || "Tienes una nueva notificación.",
+    icon: "/icon.png",
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(() => console.log("Service Worker registrado"))
+    .catch((err) => console.error("Error registrando SW", err));
+}

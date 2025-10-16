@@ -10,7 +10,10 @@ import Singin from "./components/views/session/Singin";
 import Home from "./components/views/home/home";
 import Offline from "./components/views/offline/Offline";
 
-navigator.serviceWorker.register("../sw.js");
+navigator.serviceWorker.register("/sw.js")
+  .then((reg) => console.log("SW registrado con éxito:", reg))
+  .catch(console.error);
+
 
 let db = window.indexedDB.open("GafoaDB", 1);
 db.onupgradeneeded = function (event) {

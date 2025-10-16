@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Logo from "/Gafoa.png";
 import { singin } from "../../../services/users";
 import { addUserToDB } from "../../../services/localData";
+import { sendNotification } from "../../../services/notifications";
 
 function Singin() {
   const [step, setStep] = useState(0);
@@ -27,6 +28,21 @@ function Singin() {
     }));
   };
 
+  function urlBase64ToUint8Array(base64String) {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
+
+    const rawData = atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
+
   const submit = async (e) => {
     // e.preventDefault();
 
@@ -40,6 +56,26 @@ function Singin() {
     try {
       const response = await singin(formData);
       console.log("Registro exitoso:", response);
+
+      if (Notification.permission === "default") {
+        await Notification.requestPermission();
+      }
+
+      if (Notification.permission === "granted") {
+        const swRegistration = await navigator.serviceWorker.ready;
+
+        const subscription = await swRegistration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(
+            "BDlZ5FbW8mMk2_TfJ5OColWKrNvntu4Grfn2OOgPUNJnf4U06qEmMA2EA-2yW1UqGypWDq-c0NHcH5msyFEVBQI"
+          ),
+        });
+
+        console.log("Suscripción creada:", subscription.toJSON());
+
+        // 🔹 Envía la suscripción a tu backend
+        sendNotification(subscription);
+      }
     } catch (error) {
       console.error("Error al registrar usuario:", error);
       navigator.serviceWorker.ready.then((swRegistration) => {
@@ -48,8 +84,37 @@ function Singin() {
     }
   };
 
+  navigator.serviceWorker.ready.then(async (reg) => {
+    const key =
+      "BDlZ5FbW8mMk2_TfJ5OColWKrNvntu4Grfn2OOgPUNJnf4U06qEmMA2EA-2yW1UqGypWDq-c0NHcH5msyFEVBQI";
+    const convertedKey = (function urlBase64ToUint8Array(base64String) {
+      const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+      const base64 = (base64String + padding)
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+      const rawData = atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    })(key);
+
+    try {
+      const sub = await reg.pushManager.subscribe({
+        userVisibleOnly: true,
+        applicationServerKey: convertedKey,
+      });
+      console.log("Suscripción creada manualmente:", sub.toJSON());
+    } catch (err) {
+      console.error("Error al suscribir manualmente:", err);
+    }
+  });
+
+  navigator.serviceWorker.ready.then(r => console.log(r.scope));
+
+
   const nextStep = () => {
-    console.log("Paso actual:", step);
     if (step < 2) {
       if (
         step === 0 &&
@@ -78,6 +143,16 @@ function Singin() {
       submit();
     }
   };
+
+  navigator.serviceWorker.ready.then(async (reg) => {
+    const sub = await reg.pushManager.getSubscription();
+    if (sub) {
+      console.log("Eliminando suscripción previa...");
+      await sub.unsubscribe();
+    } else {
+      console.log("No había suscripción previa.");
+    }
+  });
 
   const prevStep = () => {
     if (step > 0) setStep(step - 1);
