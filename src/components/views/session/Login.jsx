@@ -4,6 +4,7 @@ import Header from "../../elements/header/Header";
 import Footer from "../../elements/footer/Footer";
 import { Link } from "react-router-dom";
 import Logo from "/Gafoa.png";
+import classNames from "classnames";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ function Login() {
   return (
     <>
       <Header />
-      <div className={styles.background}>
+      <div className={classNames(styles.background, styles.subBottom)}>
         <h2 className={styles.title}>Iniciar sesión</h2>
 
         <div className={styles.container}>
@@ -61,7 +62,7 @@ function Login() {
                 </div>
               </div>
 
-              <div className={styles.imageContainer}>
+              <div className={classNames(styles.imageContainer, styles.loginImage)}>
                 <img src={Logo} alt="Gafoa logo" />
               </div>
             </div>
@@ -73,7 +74,7 @@ function Login() {
             </div>
 
             <p className={styles.redirectLink}>
-              ¿No tienes una cuenta? <Link to="/login">Registrate aquí</Link>
+              ¿No tienes una cuenta? <Link to="/singin">Registrate aquí</Link>
             </p>
           </form>
         </div>

@@ -7,8 +7,13 @@ import Layout from "./components/layout/titles";
 import Login from "./components/views/session/Login";
 import Singin from "./components/views/session/Singin";
 
-import Home from "./components/views/home/home";
+import Home from "./components/views/home/Home";
 import Offline from "./components/views/offline/Offline";
+import Game from "./components/views/game/Game";
+
+import Profile from "./components/views/user/profile/Profile";
+import WishList from "./components/views/user/wishList/WishList";
+import Cart from "./components/views/user/cart/Cart";
 
 navigator.serviceWorker.register("/sw.js")
   .then((reg) => console.log("SW registrado con éxito:", reg))
@@ -38,6 +43,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/singin" element={<Singin />} />
 
           <Route path="/offline" element={<Offline />} />
+
+          <Route path="/game/:id/:game" element={<Game />} />
         
         </Routes>
       </Layout>

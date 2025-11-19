@@ -1,0 +1,325 @@
+import React, { version } from "react";
+import styles from "./game.module.css";
+import Header from "../../elements/header/Header";
+import Footer from "../../elements/footer/Footer";
+import classNames from "classnames";
+import { games } from "../../../utils/gamesExample";
+import { Link, useParams } from "react-router-dom";
+import Carrousel from "../../elements/slider/Slider";
+import SubFooter from "../../elements/subFooter/SubFooter";
+import CommentsSection from "../../elements/comments/Comments";
+
+function Game() {
+  const { id } = useParams();
+
+  const game = games.find((game) => game.id === parseInt(id));
+
+  const gameDetails = {
+    id: 1,
+    name: "EchoesTime",
+    developer: "Skeleton Crew Studio",
+    publisher: "Skeleton Crew Studio",
+    salesPackages: [
+      {
+        name: "Standard Edition",
+        price: 19.99,
+        features: ["Base Game", "Digital Soundtrack"],
+      },
+    ],
+    features: [
+      "Single-player campaign",
+      "Time-manipulation mechanics",
+      "Multiple endings based on player choices",
+    ],
+    control: true,
+    languages: [
+      { name: "English", subtitles: false, voice: false, interface: true },
+      { name: "Spanish", subtitles: true, voice: false, interface: true },
+    ],
+    achievements: [
+      {
+        name: "Time Traveler",
+        description: "Complete the game.",
+        image: "",
+        value: 10,
+        gp: 0,
+      },
+    ],
+    category: ["Adventure", "Indie", "Story Rich"],
+    version: "1.0.0",
+    beta: { status: false, date: "" },
+    notes: [""],
+    images: [
+      "src/assets/images/Covers/EchoesTimeBG.jpg",
+      "src/assets/images/Covers/EchoesTimeBG.jpg",
+    ],
+  };
+
+  console.log(game.image);
+
+  const free = !game.price || game.price === 0 || game.price === "Free";
+
+  return (
+    <>
+      <Header />
+
+      <main className={classNames(styles.main)}>
+        <div className={styles.page}>
+          <section className={styles.firstSection}>
+            <div className={styles.left}>
+              <Carrousel data={gameDetails.images} type="game" manual={true} />
+            </div>
+
+            <div className={styles.right}>
+              <div className={styles.gameImage}>
+                <img src={game.image} alt={game.name} />
+              </div>
+              <h1 className={styles.title}>{game.name}</h1>
+
+              <div className={styles.tags}>
+                {game.labels.map((label, index) => (
+                  <span key={index}>{label}</span>
+                ))}
+              </div>
+
+              <p className={styles.description}>{game.description}</p>
+
+              <div className={styles.info}>
+                <p>
+                  Fecha de lanzamiento: <span>{game.date.join(" ")}</span>
+                </p>
+
+                <p>
+                  Desarrollador: <span>{gameDetails.developer}</span>
+                </p>
+
+                <p>
+                  Distribuidor: <span>{gameDetails.publisher}</span>
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.Actions}>
+            <div className={styles.actionsButtons}>
+              <button className={styles.favButton}>Agregar a favoritos</button>
+              <button>No me interesa</button>
+              <button>Ignorar</button>
+            </div>
+
+            <button className={styles.buttonWishList}>
+              Mi Lista de deseos
+            </button>
+          </section>
+
+          <section className={classNames("container", styles.gameDetails)}>
+            <div className={styles.salesPackages}>
+              <h2 className={styles.subtitle}>
+                Ediciones de {gameDetails.name}
+              </h2>
+
+              <div className={free ? styles.freePack : styles.salesPack}>
+                <div className={styles.packInfo}>
+                  <h3>Adquirir {game.name}</h3>
+
+                  <ul className={styles.featureList}>
+                    {/* {pack.features.map((packFeature, idx) => (
+                        <li key={idx}>{packFeature}</li>
+                      ))} */}
+                  </ul>
+                </div>
+
+                <div className={styles.gamePurchase}>
+                  <div className={styles.gamePrice}>
+                    {game.discount && <span>{game.discount}</span>}
+                    <p>Mex$ {game.price}</p>
+                  </div>
+                  <div className={styles.packBuy}>
+                    <button className={styles.buyButton}>
+                      Agregar al carrito
+                    </button>
+                    <Link to="#" className={styles.buyNowButton}>
+                      Comprar ahora
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {gameDetails.salesPackages.map((pack, i) => (
+                <div key={i} className={styles.salesPack}>
+                  <div className={styles.packInfo}>
+                    <h3>{pack.name}</h3>
+
+                    <ul className={styles.featureList}>
+                      {pack.features.map((f, idx) => (
+                        <li key={idx}>{f}</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className={styles.packBuy}>
+                    <span className={styles.price}>
+                      Mex$ {pack.price.toFixed(2)}
+                    </span>
+                    <button className={styles.buyButton}>
+                      Agregar al carrito
+                    </button>
+                  </div>
+                </div>
+              ))}
+
+              <h3 className={styles.subtitle}>CONTENIDO PARA ESTE JUEGO</h3>
+
+              {gameDetails.features && (
+                <div className={styles.extraContent}>
+                  {gameDetails.features.map((f, i) => (
+                    <div key={i} className={styles.extraRow}>
+                      {f}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className={styles.details}>
+              <h2 className={styles.subtitle}>DETALLES</h2>
+
+              <div className={styles.detailsBox}>
+                <div>
+                  <strong>Desarrollador:</strong> {gameDetails.developer}
+                </div>
+                <div>
+                  <strong>Editor:</strong> {gameDetails.publisher}
+                </div>
+                <div>
+                  <strong>Versión:</strong> {gameDetails.version}
+                </div>
+                {gameDetails.beta.status && (
+                  <div>
+                    <strong>Beta:</strong> Disponible el {gameDetails.beta.date}
+                  </div>
+                )}
+
+                <h3 className={styles.detailsSub}>Categorías</h3>
+                <div className={styles.badges}>
+                  {gameDetails.category.map((c, i) => (
+                    <span key={i}>{c}</span>
+                  ))}
+                </div>
+
+                <h3 className={styles.detailsSub}>Idiomas</h3>
+                <table className={styles.languagesTable}>
+                  <thead>
+                    <tr>
+                      <th>Idioma</th>
+                      <th>Interfaz</th>
+                      <th>Voces</th>
+                      <th>Subtítulos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {gameDetails.languages.map((lang, i) => (
+                      <tr key={i}>
+                        <td>{lang.name}</td>
+                        <td>{lang.interface ? "✔️" : "✖"}</td>
+                        <td>{lang.voice ? "✔️" : "✖"}</td>
+                        <td>{lang.subtitles ? "✔️" : "✖"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section className={styles.descriptionSection}>
+            <div className={classNames("container", styles.descriptionSection)}>
+              <h2>Descripción</h2>
+              <p>{game.description}</p>
+            </div>
+          </section>
+        </div>
+
+        <section className={styles.requirementsSection}>
+          <div className={classNames("container", styles.requirements)}>
+            <h2 className={styles.subtitle}>Requisitos del sistema</h2>
+            <div className={styles.requirementsBoxes}>
+              <div className={styles.requirementBox}>
+                <h3>Requisitos mínimos</h3>
+                <ul>
+                  <li>
+                    <strong>SO:</strong> Windows 7/8/10 64-bit
+                  </li>
+                  <li>
+                    <strong>Procesador:</strong> Intel Core i5-2400 / AMD
+                    FX-6300
+                  </li>
+                  <li>
+                    <strong>Memoria:</strong> 8 GB de RAM
+                  </li>
+                  <li>
+                    <strong>Gráficos:</strong> NVIDIA GeForce GTX 660 / AMD
+                    Radeon HD 7870
+                  </li>
+                  <li>
+                    <strong>DirectX:</strong> Versión 11
+                  </li>
+                  <li>
+                    <strong>Almacenamiento:</strong> 20 GB de espacio disponible
+                  </li>
+                </ul>
+              </div>
+
+              <div className={styles.requirementBox}>
+                <h3>Requisitos recomendados</h3>
+                <ul>
+                  <li>
+                    <strong>SO:</strong> Windows 10 64-bit
+                  </li>
+                  <li>
+                    <strong>Procesador:</strong> Intel Core i7-4770 / AMD Ryzen
+                    5 1500X
+                  </li>
+                  <li>
+                    <strong>Memoria:</strong> 16 GB de RAM
+                  </li>
+                  <li>
+                    <strong>Gráficos:</strong> NVIDIA GeForce GTX 1060 / AMD
+                    Radeon RX 580
+                  </li>
+                  <li>
+                    <strong>DirectX:</strong> Versión 11
+                  </li>
+                  <li>
+                    <strong>Almacenamiento:</strong> 20 GB de espacio disponible
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div className={classNames("container", styles.recommendations)}>
+            <h2>Recomendaciones</h2>
+            <Carrousel data={games} type="game" manual={true} />
+          </div>
+        </section>
+
+        <div className={styles.page}>
+          <section>
+            <CommentsSection />
+          </section>
+
+          <section>
+            <SubFooter />
+          </section>
+        </div>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+export default Game;

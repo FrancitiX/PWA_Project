@@ -1,0 +1,34 @@
+.Carrousel {
+    background: rgb(0, 54, 109);
+}
+
+.images {
+    height: 450px;
+    width: 100%;
+}
+
+.home {
+    height: 350px;
+    width: 90%;
+}
+
+.game {
+    height: 400px;
+    width: 80%;
+}
+
+.games {
+    height: 200px;
+    width: 100%;
+}
+
+
+@media  screen and (min-width: 700px) {
+    .home {
+        width: 95%;
+    }
+    
+    .games {
+        width: 100%;
+    }
+}
