@@ -72,7 +72,9 @@ function Singin() {
       }
 
       if (response.status === "ok") {
-        await notifyUser();
+        const title = "Usuario registrado correctamente!";
+        const message = "Se ah registrado correctamente tu usuario " + formData.username;
+        await notifyUser(title, message);
       }
     } catch (err) {
       console.error("Error al registrar usuario:", err);
