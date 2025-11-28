@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACK_URL = "http://localhost:5102";
+const BACK_URL = "https://pwa-project-back.onrender.com";
 
 const singin = async (userData) => {
   try {
