@@ -39,6 +39,13 @@ db.onerror = function (event) {
   console.error("Error al abrir IndexedDB:", event.target.errorCode);
 };
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(() => console.log("Service Worker registrado"))
+    .catch((err) => console.error("Error registrando SW", err));
+}
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

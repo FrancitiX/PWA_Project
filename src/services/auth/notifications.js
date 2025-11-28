@@ -1,20 +1,27 @@
-import axios from "axios";
+// import axios from "axios";
 
-const BACK_URL = "http://localhost:5102";
+// const BACK_URL = "http://localhost:5102";
 
-async function sendNotification(subscription) {
-  try {
-    const response = await axios.post(
-      `${BACK_URL}/api/sendPush`,
-      subscription,
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    console.log("Notificación enviada:", response.data);
-  } catch (error) {
-    console.error("Error al enviar notificación:", error);
-  }
-}
+// async function sendNotification(subscription, token) {
+//   try {
+//     const response = await axios.post(
+//       `${BACK_URL}/auth/save-subscription`,
+//       {
+//         endpoint: subscription.endpoint,
+//         keys: subscription.toJSON().keys,
+//       },
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: "Bearer " + token,
+//         },
+//       }
+//     );
 
-export { sendNotification };
+//     console.log("Suscripción guardada:", response.data);
+//   } catch (error) {
+//     console.error("Error al guardar la suscripción:", error);
+//   }
+// }
+
+// export { sendNotification };
