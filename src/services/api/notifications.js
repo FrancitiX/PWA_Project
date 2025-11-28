@@ -24,9 +24,9 @@ async function sendNotification(subscription, user) {
   }
 }
 
-async function notifyUser() {
+async function notifyUser(title, message) {
     try {
-    const response = await axios.get(`${BACK_URL}/api/send-test`);
+    const response = await axios.get(`${BACK_URL}/api/send-test`, {title, message});
     console.log("Notificaciones enviadas:", response.data);
   } catch (error) {
     console.error("Error al enviar notificaciones:", error);
