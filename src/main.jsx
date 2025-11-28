@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Layout from "./components/layout/titles";
+import Layout from "./components/layout/Titles";
 
 import Login from "./components/views/session/Login";
 import Singin from "./components/views/session/Singin";
