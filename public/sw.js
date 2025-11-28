@@ -13,6 +13,12 @@ self.addEventListener("install", (event) => {
         "public/Gafoa.png",
         "src/components/views/session/Singin.jsx",
         "src/components/views/session/session.module.css",
+        "src/components/views/user/cart/Cart.jsx",
+        "src/components/views/user/cart/Cart.module.css",
+        "src/components/views/user/profile/Profile.jsx",
+        "src/components/views/user/profile/Profile.module.css",
+        "src/components/views/home/library/Library.jsx",
+        "src/components/views/home/library/Library.module.css"
       ]);
     })
   );

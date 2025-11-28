@@ -119,3 +119,7 @@
 .subnav .item:hover {
     text-decoration: underline;
 }
+
+@media screen && (min-max(700px)) {
+    
+}
