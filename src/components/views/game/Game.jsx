@@ -1,5 +1,5 @@
 import React, { version } from "react";
-import styles from "./game.module.css";
+import styles from "./Game.module.css";
 import Header from "../../elements/header/Header";
 import Footer from "../../elements/footer/Footer";
 import classNames from "classnames";
