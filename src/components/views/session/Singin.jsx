@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Logo from "/Gafoa.png";
 import { singin } from "../../../services/api/users";
 import { addUserToDB } from "../../../services/localData";
-import { sendNotification } from "../../../services/auth/notifications";
+import { notifyUser, sendNotification } from "../../../services/api/notifications";
 import classNames from "classnames";
 
 function Singin() {
@@ -19,6 +19,7 @@ function Singin() {
     email: "",
     password: "",
     confirmPassword: "",
+    role: 5,
   });
 
   const change = (e) => {
@@ -44,16 +45,7 @@ function Singin() {
     return outputArray;
   }
 
-  const submit = async (e) => {
-    // e.preventDefault();
-
-    // Validación simple para confirmar las contraseñas
-    if (formData.password !== formData.confirmPassword) {
-      alert("Las contraseñas no coinciden. Por favor, inténtalo de nuevo.");
-      return;
-    }
-
-    addUserToDB(formData);
+  const submit = async () => {
     try {
       const response = await singin(formData);
       console.log("Registro exitoso:", response);
@@ -62,57 +54,30 @@ function Singin() {
         await Notification.requestPermission();
       }
 
-      if (Notification.permission === "granted") {
-        const swRegistration = await navigator.serviceWorker.ready;
+      if ("serviceWorker" in navigator) {
+        const swReg = await navigator.serviceWorker.ready;
 
-        const subscription = await swRegistration.pushManager.subscribe({
+        const applicationServerKey = urlBase64ToUint8Array(
+          "BMmsIRKY5PY5nonO_tHVjgYCt1wd8mnewHM3aaljEqd2gqccehKWeaNs4vmdHZM1PduoQej6rk6qFv9o8XJwUHY"
+        );
+
+        const subscription = await swReg.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(
-            "BDlZ5FbW8mMk2_TfJ5OColWKrNvntu4Grfn2OOgPUNJnf4U06qEmMA2EA-2yW1UqGypWDq-c0NHcH5msyFEVBQI"
-          ),
+          applicationServerKey,
         });
 
-        console.log("Suscripción creada:", subscription.toJSON());
+        console.log("Subscription:", subscription);
 
-        // 🔹 Envía la suscripción a tu backend
-        sendNotification(subscription);
+        await sendNotification(subscription, formData.username);
       }
-    } catch (error) {
-      console.error("Error al registrar usuario:", error);
-      navigator.serviceWorker.ready.then((swRegistration) => {
-        return swRegistration.sync.register("sync-users");
-      });
+
+      if (response.status === "ok") {
+        await notifyUser();
+      }
+    } catch (err) {
+      console.error("Error al registrar usuario:", err);
     }
   };
-
-  navigator.serviceWorker.ready.then(async (reg) => {
-    const key =
-      "BDlZ5FbW8mMk2_TfJ5OColWKrNvntu4Grfn2OOgPUNJnf4U06qEmMA2EA-2yW1UqGypWDq-c0NHcH5msyFEVBQI";
-    const convertedKey = (function urlBase64ToUint8Array(base64String) {
-      const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-      const base64 = (base64String + padding)
-        .replace(/-/g, "+")
-        .replace(/_/g, "/");
-      const rawData = atob(base64);
-      const outputArray = new Uint8Array(rawData.length);
-      for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-      }
-      return outputArray;
-    })(key);
-
-    try {
-      const sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: convertedKey,
-      });
-      console.log("Suscripción creada manualmente:", sub.toJSON());
-    } catch (err) {
-      console.error("Error al suscribir manualmente:", err);
-    }
-  });
-
-  navigator.serviceWorker.ready.then((r) => console.log(r.scope));
 
   const nextStep = () => {
     if (step < 2) {
@@ -144,15 +109,15 @@ function Singin() {
     }
   };
 
-  navigator.serviceWorker.ready.then(async (reg) => {
-    const sub = await reg.pushManager.getSubscription();
-    if (sub) {
-      console.log("Eliminando suscripción previa...");
-      await sub.unsubscribe();
-    } else {
-      console.log("No había suscripción previa.");
-    }
-  });
+  // navigator.serviceWorker.ready.then(async (reg) => {
+  //   const sub = await reg.pushManager.getSubscription();
+  //   if (sub) {
+  //     console.log("Eliminando suscripción previa...");
+  //     await sub.unsubscribe();
+  //   } else {
+  //     console.log("No había suscripción previa.");
+  //   }
+  // });
 
   const prevStep = () => {
     if (step > 0) setStep(step - 1);

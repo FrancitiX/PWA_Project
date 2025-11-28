@@ -4,22 +4,17 @@ const DYNAMIC_CACHE = "dynamic_v1.0";
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(APP_SHELL_CACHE).then((cache) => {
-      return cache.addAll([
-        "/src/index.css",
-        "/src/components/views/home/Home.jsx",
-        "/src/components/views/home/home.module.css",
-        "src/components/views/offline/Offline.jsx",
-        "src/components/views/offline/offline.module.css",
-        "public/Gafoa.png",
-        "src/components/views/session/Singin.jsx",
-        "src/components/views/session/session.module.css",
-        "src/components/views/user/cart/Cart.jsx",
-        "src/components/views/user/cart/Cart.module.css",
-        "src/components/views/user/profile/Profile.jsx",
-        "src/components/views/user/profile/Profile.module.css",
-        "src/components/views/home/library/Library.jsx",
-        "src/components/views/home/library/Library.module.css"
-      ]);
+      // return cache.addAll([
+      //   "/src/index.css",
+      //   "/src/components/views/home/Home.jsx",
+      //   "/src/components/views/home/home.module.css",
+      //   "src/components/views/offline/Offline.jsx",
+      //   "src/components/views/offline/offline.module.css",
+      //   "public/Gafoa.png",
+      //   "src/components/views/session/Singin.jsx",
+      //   "src/components/views/session/session.module.css",
+      // ]);
+      return cache.addAll(["/", "/Gafoa.png"]);
     })
   );
   self.skipWaiting();
@@ -101,10 +96,3 @@ self.addEventListener("push", (event) => {
 
   event.waitUntil(self.registration.showNotification(title, options));
 });
-
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/sw.js")
-    .then(() => console.log("Service Worker registrado"))
-    .catch((err) => console.error("Error registrando SW", err));
-}

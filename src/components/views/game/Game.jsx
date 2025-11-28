@@ -1,4 +1,4 @@
-import React, { version } from "react";
+import React, { useEffect, useState, version } from "react";
 import styles from "./Game.module.css";
 import Header from "../../elements/header/Header";
 import Footer from "../../elements/footer/Footer";
@@ -8,19 +8,35 @@ import { Link, useParams } from "react-router-dom";
 import { Carrousel } from "../../elements/slider/Slider";
 import SubFooter from "../../elements/subFooter/SubFooter";
 import CommentsSection from "../../elements/comments/Comments";
+import { addToCartDB, existsInLibrary, saveGame } from "../../../services/localData";
 
 function Game() {
   const { id } = useParams();
   const game = games.find((game) => game.id === parseInt(id));
   const gameDetails = gamesDetails.find((game) => game.gameID === parseInt(id));
+  const [alreadyOwned, setAlreadyOwned] = useState(false);
 
-  console.log(game);
+  // console.log(game);
 
   const free =
     !game.price ||
     game.price === 0 ||
     game.price === "Free to play" ||
     game.price === "Free";
+
+  const addToLibrary = async (game) => {
+    const result = await saveGame(game);
+
+    if (result === "already-exists") {
+      alert("Este juego ya está en tu biblioteca.");
+    } else {
+      alert("Juego agregado a tu biblioteca.");
+    }
+  };
+
+  useEffect(() => {
+    existsInLibrary(game.key).then(setAlreadyOwned);
+  }, []);
 
   return (
     <>
@@ -168,35 +184,45 @@ function Game() {
                       )}
 
                       <div className={styles.packButtons}>
-                        {pack.price > 0 ? (
-                          <>
-                            <button
-                              className={classNames(
-                                styles.button,
-                                styles.buyButton
-                              )}
-                            >
-                              Comprar
-                            </button>
-                            <button
-                              className={classNames(
-                                styles.button,
-                                styles.cartButton
-                              )}
-                            >
-                              Agregar al carrito
-                            </button>
-                          </>
+                        {alreadyOwned ? (
+                          <button className={styles.disabledButton}>
+                            Ya en tu biblioteca
+                          </button>
                         ) : (
                           <>
-                            <button
-                              className={classNames(
-                                styles.button,
-                                styles.buyButton
-                              )}
-                            >
-                              Agregar a la biblioteca
-                            </button>
+                            {pack.price > 0 ? (
+                              <>
+                                <button
+                                  className={classNames(
+                                    styles.button,
+                                    styles.buyButton
+                                  )}
+                                >
+                                  Comprar
+                                </button>
+                                <button
+                                  className={classNames(
+                                    styles.button,
+                                    styles.cartButton
+                                  )}
+                                  onClick={() => addToCartDB(game)}
+                                >
+                                  Agregar al carrito
+                                </button>
+                              </>
+                            ) : (
+                              <>
+                                <button
+                                  className={classNames(
+                                    styles.button,
+                                    styles.buyButton
+                                  )}
+                                  onClick={() => addToLibrary(game)}
+                                >
+                                  Agregar a la biblioteca
+                                </button>
+                              </>
+                            )}
                           </>
                         )}
                       </div>
@@ -288,8 +314,7 @@ function Game() {
                     <strong>SO:</strong> Windows 95
                   </li>
                   <li>
-                    <strong>Procesador:</strong> Intel pentium / AMD
-                    similar
+                    <strong>Procesador:</strong> Intel pentium / AMD similar
                   </li>
                   <li>
                     <strong>Memoria:</strong> 1 GB de RAM

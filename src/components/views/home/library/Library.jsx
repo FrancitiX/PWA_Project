@@ -1,114 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Library.module.css";
 import Header from "../../../elements/header/Header";
-
-const mockLibrary = [
-  {
-    id: 1,
-    name: "Red Dead Redemption 2",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1174180/header.jpg",
-    size: "119.45 GB",
-    drive: "F:",
-    favorite: true,
-    installed: true,
-  },
-  {
-    id: 2,
-    name: "Street Fighter 6",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1364780/header.jpg",
-    size: "103.11 GB",
-    drive: "F:",
-    favorite: true,
-    installed: true,
-  },
-  {
-    id: 3,
-    name: "DOOM Eternal",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/782330/header.jpg",
-    size: "89.42 GB",
-    drive: "C:",
-    favorite: true,
-    installed: true,
-  },
-  {
-    id: 4,
-    name: "Battlefield 2042",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1517290/header.jpg",
-    size: "69.22 GB",
-    drive: "F:",
-    favorite: true,
-    installed: false,
-  },
-  {
-    id: 5,
-    name: "Rainbow Six Siege",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/359550/header.jpg",
-    size: "64.32 GB",
-    drive: "F:",
-    favorite: true,
-    installed: true,
-  },
-  {
-    id: 6,
-    name: "Counter-Strike 2",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/730/header.jpg",
-    size: "55.41 GB",
-    drive: "C:",
-    favorite: true,
-    installed: true,
-  },
-  {
-    id: 7,
-    name: "NieR:Automata",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/524220/header.jpg",
-    size: "40.88 GB",
-    drive: "F:",
-    favorite: false,
-    installed: true,
-  },
-  {
-    id: 8,
-    name: "Left 4 Dead 2",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/550/header.jpg",
-    size: "15.63 GB",
-    drive: "C:",
-    favorite: false,
-    installed: true,
-  },
-  {
-    id: 9,
-    name: "Hollow Knight",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/367520/header.jpg",
-    size: "7.43 GB",
-    drive: "C:",
-    favorite: false,
-    installed: true,
-  },
-  {
-    id: 10,
-    name: "Stardew Valley",
-    cover:
-      "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/413150/header.jpg",
-    size: "1.2 GB",
-    drive: "C:",
-    favorite: true,
-    installed: true,
-  },
-];
+import { getMyGames } from "../../../../services/localData";
 
 function Library() {
+  const [libraryGames, setLibraryGames] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const myGames = mockLibrary.filter((g) =>
+  useEffect(() => {
+    loadLibrary();
+  }, []);
+
+  const loadLibrary = async () => {
+    const data = await getMyGames();
+    setLibraryGames(data);
+  };
+
+  const myGames = libraryGames.filter((g) =>
     g.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -117,7 +25,7 @@ function Library() {
 
   return (
     <>
-        <Header />
+      <Header />
 
       <main className={styles.libraryContainer}>
         <aside className={styles.sidebar}>
@@ -189,7 +97,7 @@ function Library() {
           <div className={styles.topBar}>
             <div className={styles.collectionTitle}>
               Todos los juegos{" "}
-              <span className={styles.count}>({mockLibrary.length})</span>
+              <span className={styles.count}>({libraryGames.length})</span>
             </div>
             <div className={styles.sortControls}>
               <span>ORDENAR POR</span>
