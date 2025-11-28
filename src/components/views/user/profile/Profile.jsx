@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Profile.module.css";
 import classNames from "classnames";
-import App from "../../../layout/app";
+import App from "../../../layout/App";
 
 const userData = {
   username: "FrancitiX",
@@ -165,7 +165,8 @@ function Profile() {
               <div className={styles.badgesGrid}>
                 {userData.badges.map((badgeUrl, index) => (
                   <img
-                    key={index}ñ
+                    key={index}
+                    ñ
                     src={badgeUrl}
                     alt={`Insignia ${index + 1}`}
                     className={styles.miniBadge}

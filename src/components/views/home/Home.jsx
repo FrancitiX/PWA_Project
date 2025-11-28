@@ -1,5 +1,5 @@
 import React from "react";
-import App from "../../layout/app";
+import App from "../../layout/App";
 import styles from "./home.module.css";
 import {
   Carrousel,

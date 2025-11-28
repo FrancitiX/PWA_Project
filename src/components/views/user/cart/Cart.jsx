@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Cart.module.css";
-import App from "../../../layout/app";
+import App from "../../../layout/App";
 
 const recommendations = [
   {
