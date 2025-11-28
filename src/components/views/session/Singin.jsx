@@ -4,9 +4,9 @@ import Header from "../../elements/header/Header";
 import Footer from "../../elements/footer/Footer";
 import { Link } from "react-router-dom";
 import Logo from "/Gafoa.png";
-import { singin } from "../../../services/users";
+import { singin } from "../../../services/api/users";
 import { addUserToDB } from "../../../services/localData";
-import { sendNotification } from "../../../services/notifications";
+import { sendNotification } from "../../../services/auth/notifications";
 import classNames from "classnames";
 
 function Singin() {

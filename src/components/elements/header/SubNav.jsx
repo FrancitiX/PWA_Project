@@ -8,7 +8,7 @@ function SubNav() {
         <div className={styles.item}>Explorar</div>
         <div className={styles.item}>Recomendaciones</div>
         <div className={styles.item}>Categorías</div>
-        <div className={styles.item}>Más</div>
+        {/* <div className={styles.item}>Más</div> */}
         <div>
             <InputSearch 
                 value=""

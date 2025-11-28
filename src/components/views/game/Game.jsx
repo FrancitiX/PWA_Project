@@ -5,7 +5,7 @@ import Footer from "../../elements/footer/Footer";
 import classNames from "classnames";
 import { games } from "../../../utils/gamesExample";
 import { Link, useParams } from "react-router-dom";
-import Carrousel from "../../elements/slider/Slider";
+import { Carrousel } from "../../elements/slider/Slider";
 import SubFooter from "../../elements/subFooter/SubFooter";
 import CommentsSection from "../../elements/comments/Comments";
 
@@ -311,9 +311,9 @@ function Game() {
             <CommentsSection />
           </section>
 
-          <section>
+          {/* <section>
             <SubFooter />
-          </section>
+          </section> */}
         </div>
       </main>
 

@@ -1,0 +1,297 @@
+.profileBackground {
+    font-family: "Motiva Sans", Arial, sans-serif;
+    min-height: 100vh;
+    padding-top: 30px;
+    color: rgb(var(--primaryColor));
+    background: linear-gradient(to bottom, rgb(var(--primaryBG)), rgb(45, 16, 43) 100%);
+}
+
+.profileContent {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 980px;
+    display: flex;
+    background: linear-gradient(to top, rgb(var(--primaryBG)), rgb(16, 40, 45) 100%);
+    border-radius: 10px;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.mainColumn {
+    flex: 1;
+}
+
+.profileHeader {
+    display: flex;
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    gap: 20px;
+}
+
+.avatarContainer {
+    padding: 2px;
+    width: 164px;
+    height: 164px;
+    border: 2px solid rgb(0, 157, 255);
+    flex-shrink: 0;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.headerInfo {
+    flex-grow: 1;
+}
+
+.username {
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    margin: 0 0 5px 0;
+    font-weight: normal;
+}
+
+.dropdownArrow {
+    font-size: 12px;
+    color: #8f98a0;
+    cursor: pointer;
+}
+
+.subInfo {
+    color: #8f98a0;
+    font-size: 13px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.flag {
+    margin: 0 8px;
+    font-size: 16px;
+}
+
+.description {
+    color: #c6d4df;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Actividad Reciente */
+.sectionTitleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.sectionTitleRow h3 {
+    color: #ffffff;
+    font-weight: normal;
+    margin: 0;
+    font-size: 16px;
+}
+
+.recentHours {
+    color: #8f98a0;
+    font-size: 13px;
+}
+
+/* Tarjetas de Juego Reciente */
+.gameActivityCard {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    border-radius: 3px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.gameCover img {
+    width: 184px;
+    height: 69px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.gameDetails {
+    flex-grow: 1;
+}
+
+.gameDetails h4 {
+    color: #ffffff;
+    margin: 0 0 5px 0;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.statsRow {
+    font-size: 12px;
+    color: #8f98a0;
+    margin-bottom: 15px;
+}
+
+.lastPlayed {
+    margin-left: 15px;
+}
+
+.achievementsBar {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #8f98a0;
+}
+
+.barContainer {
+    flex-grow: 1;
+    height: 8px;
+    background-color: #3d4450;
+    margin: 0 10px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.barFill {
+    height: 100%;
+    background: linear-gradient(to right, #4c6b22, #6a8535);
+    /* Gradiente verde Steam */
+}
+
+/* --- Columna Derecha (Sidebar) --- */
+.rightSidebar {
+    width: 308px;
+    flex-shrink: 0;
+}
+
+/* Caja de Nivel */
+.levelBox {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.levelCircle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #8f98a0;
+}
+
+/* El círculo del nivel */
+.levelNumber {
+    border: 2px solid #4c6b22;
+    /* Color del borde según el nivel */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.badgeInfo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.badgeIcon {
+    width: 54px;
+    height: 54px;
+}
+
+.badgeTitle {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.xpInfo {
+    color: #8f98a0;
+    font-size: 12px;
+}
+
+.editProfileBtn {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffffff;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.onlineStatus {
+    color: #57cbde;
+    /* Color azul claro de "En línea" */
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Secciones del Sidebar */
+.sidebarSection h3,
+.linkItem {
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.count {
+    color: #8f98a0;
+    margin-left: 5px;
+}
+
+.badgesGrid {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 30px;
+}
+
+.miniBadge {
+    width: 40px;
+    height: 40px;
+}
+
+.sidebarLinks .linkItem {
+    padding: 8px 0;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.sidebarLinks .linkItem:hover {
+    color: #66c0f4;
+    /* Azul al pasar el mouse */
+}
+
+/* Responsive básico */
+@media (max-width: 768px) {
+    .profileContent {
+        flex-direction: column;
+        padding: 0 15px;
+    }
+
+    .rightSidebar {
+        width: 100%;
+    }
+
+    .profileHeader {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .subInfo {
+        justify-content: center;
+    }
+}

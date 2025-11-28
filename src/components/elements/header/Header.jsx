@@ -26,14 +26,14 @@ function Header() {
             <div className={styles.navigationLinks}>
               <Link to="/">Tienda</Link>
               <Link to="#products">Biblioteca</Link>
-              <Link to="#about">Acerca de</Link>
-              <Link to="#contact">Contacto</Link>
+              {/* <Link to="#about">Acerca de</Link>
+              <Link to="#contact">Contacto</Link> */}
             </div>
           </div>
 
           <div className={styles.profileOptions}>
             <div>{/* <i className="fas fa-user"></i> */}</div>
-            <Link to="#cart">
+            <Link to="/user/cart">
               <MdShoppingCart />
             </Link>
             <Link to="/login">Iniciar Sesión</Link>

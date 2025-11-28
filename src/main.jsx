@@ -15,10 +15,10 @@ import Profile from "./components/views/user/profile/Profile";
 import WishList from "./components/views/user/wishList/WishList";
 import Cart from "./components/views/user/cart/Cart";
 
-navigator.serviceWorker.register("/sw.js")
+navigator.serviceWorker
+  .register("/sw.js")
   .then((reg) => console.log("SW registrado con éxito:", reg))
   .catch(console.error);
-
 
 let db = window.indexedDB.open("GafoaDB", 1);
 db.onupgradeneeded = function (event) {
@@ -28,7 +28,7 @@ db.onupgradeneeded = function (event) {
   }
 };
 
-db.onerror = function(event) {
+db.onerror = function (event) {
   console.error("Error al abrir IndexedDB:", event.target.errorCode);
 };
 
@@ -37,15 +37,19 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Layout>
         <Routes>
-          {/* Navegacion normal */}
           <Route path="/" element={<Home />} />
+
+          {/* Vistas de usuario */}
           <Route path="/login" element={<Login />} />
           <Route path="/singin" element={<Singin />} />
+          <Route path="/profile/:user" element={<Profile />} />
 
-          <Route path="/offline" element={<Offline />} />
-
+          {/* Home y vistas generales */}
           <Route path="/game/:id/:game" element={<Game />} />
-        
+          <Route path="/:user/cart" element={<Cart />} />
+
+          {/* Vista offline */}
+          <Route path="/offline" element={<Offline />} />
         </Routes>
       </Layout>
     </BrowserRouter>

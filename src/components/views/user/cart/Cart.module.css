@@ -1,0 +1,261 @@
+/* --- Estilos Generales --- */
+.mainContainer {
+    background: rgb(var(--primaryBG));
+    color: rgba(191, 203, 217);
+    font-family: "Motiva Sans", Arial, sans-serif;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.pageTitle {
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-size: 26px;
+    font-weight: 700;
+    color: rgb(var(--textColor));
+    letter-spacing: 1px;
+}
+
+.contentWrapper {
+    display: flex;
+    gap: 20px;
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+/* --- Columna Izquierda --- */
+.leftColumn {
+    flex: 1;
+    /* Ocupa todo el espacio disponible */
+}
+
+.cartBox {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    min-height: 80px;
+    margin-bottom: 15px;
+}
+
+.emptyMessage {
+    color: #8f98a0;
+    font-size: 14px;
+}
+
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+/* Botones Estilo Steam */
+.btnSecondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnSecondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btnSecondary.disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* --- Sección Recomendaciones --- */
+.recommendationsSection h3 {
+    font-size: 14px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #3a4b5d;
+    /* Línea sutil */
+    padding-bottom: 5px;
+}
+
+.recGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columnas */
+    gap: 15px;
+}
+
+.gameCard {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.gameCard:hover {
+    border-color: #66c0f4;
+    /* Borde azul al pasar mouse */
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cardImage img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cardInfo {
+    padding: 5px 10px;
+    background: #16202d;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceBlock {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Etiquetas de Precio */
+.discountBadge {
+    background-color: #4c6b22;
+    /* Verde Steam descuento */
+    color: #beee11;
+    /* Verde neón texto */
+    padding: 0 4px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.priceText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.1;
+}
+
+.originalPrice {
+    color: #738895;
+    text-decoration: line-through;
+    font-size: 11px;
+}
+
+.discountedPrice {
+    color: #beee11;
+    /* El mismo verde neón */
+}
+
+.normalPrice {
+    color: #fff;
+}
+
+/* --- Columna Derecha (Sidebar) --- */
+.rightColumn {
+    width: 308px;
+    /* Ancho fijo sidebar */
+    flex-shrink: 0;
+}
+
+.summaryBox {
+    background-color: #1a2333;
+    /* Un gris-azulado ligeramente distinto */
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.totalPrice {
+    font-weight: bold;
+    color: #fff;
+}
+
+.taxNote {
+    font-size: 11px;
+    color: #8f98a0;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.btnPrimary {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to bottom, #799905 5%, #536904 95%);
+    /* Gradiente Verde */
+    border: none;
+    border-radius: 2px;
+    color: #d2efa9;
+    font-size: 15px;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.btnPrimary:hover {
+    background: linear-gradient(to bottom, #8ab507 5%, #668205 95%);
+    color: #fff;
+}
+
+.btnPrimary:disabled {
+    background: #3d4450;
+    /* Gris deshabilitado */
+    color: #5d636b;
+    cursor: not-allowed;
+}
+
+/* Caja de Info Extra */
+.infoBox {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    font-size: 12px;
+    color: #8f98a0;
+}
+
+.infoIcon {
+    margin-bottom: 10px;
+}
+
+.fakeIcon {
+    font-size: 40px;
+    opacity: 0.5;
+}
+
+.smallNote {
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+.smallNote a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.smallNote a:hover {
+    color: #66c0f4;
+}
+
+/* Responsive para celulares */
+@media (max-width: 768px) {
+    .contentWrapper {
+        flex-direction: column;
+    }
+
+    .rightColumn {
+        width: 100%;
+    }
+
+    .recGrid {
+        grid-template-columns: 1fr;
+        /* 1 columna en móvil */
+    }
+}

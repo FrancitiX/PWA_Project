@@ -4,10 +4,11 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import styles from "./Slider.module.css";
 import classNames from "classnames";
 
-export default function Carrousel({ data, type, manual }) {
+function Carrousel({ data, type, manual }) {
   const items = data && data.length > 0 ? data : [];
   const actions = manual ? [Autoplay, Navigation] : [Autoplay];
   const sizeClass =
@@ -25,7 +26,7 @@ export default function Carrousel({ data, type, manual }) {
         className={classNames(styles.Carrousel, sizeClass)}
         modules={actions}
         slidesPerView={1}
-        loop={true}
+        loop={items.length > 1}
         autoplay={{ delay: 4000 }}
         navigation={manual ? true : false}
       >
@@ -72,3 +73,96 @@ export default function Carrousel({ data, type, manual }) {
     </>
   );
 }
+
+function CarrouselGames({ data }) {
+  const items = data && data.length > 0 ? data : [];
+
+  return (
+    <>
+      <Swiper
+        className={styles.CarrouselGames}
+        modules={[Navigation, Autoplay]}
+        slidesPerView={1}
+        loop={true}
+        autoplay={{ delay: 5000 }}
+        navigation
+      >
+        {items.map((item, index) => (
+          <SwiperSlide key={index}>
+            <div className={styles.slideGames}>
+              <div className={styles.left}>
+                <img src={item.img} className={styles.mainImage} />
+              </div>
+
+              <div className={styles.right}>
+                <h2 className={styles.title}>{item.name}</h2>
+
+                <div className={styles.thumbs}>
+                  {item.images?.map((img, i) => (
+                    <img key={i} src={img} className={styles.thumb} />
+                  ))}
+                </div>
+
+                <p className={styles.available}>Ya disponible</p>
+
+                <button className={styles.tag}>Lo más vendido</button>
+
+                <p className={styles.price}>
+                  {item.discount > 0 && (
+                    <span className={styles.discount}>-{item.discount}%</span>
+                  )}
+                  <span className={styles.finalPrice}>${item.price}</span>
+                </p>
+
+                <p className={styles.platform}>{item.platform}</p>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
+  );
+}
+
+function OffersCarousel({ data }) {
+  const games = Array.isArray(data) ? data : [];
+
+  return (
+    <>
+      <Swiper
+        modules={[Navigation, Autoplay]}
+        slidesPerView={Math.max(1, Math.min(games.length, 3))}
+        spaceBetween={20}
+        navigation
+        loop={false}
+        autoplay={{ delay: 5000 }}
+        className={styles.carouselOffer}
+      >
+        {games.map((game, i) => (
+          <SwiperSlide key={i}>
+            <div className={styles.card}>
+              {game.tag && <div className={styles.tag}>{game.tag}</div>}
+
+              <img src={game.img} className={styles.image} />
+
+              {game.banner && (
+                <div className={styles.banner}>{game.banner}</div>
+              )}
+
+              <div className={styles.bottom}>
+                <div className={styles.discount}>-{game.discount}%</div>
+
+                <div className={styles.prices}>
+                  <span className={styles.oldPrice}>{game.oldPrice}</span>
+                  <span className={styles.newPrice}>{game.newPrice}</span>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
+  );
+}
+
+export { Carrousel, CarrouselGames, OffersCarousel };

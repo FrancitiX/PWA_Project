@@ -27,10 +27,6 @@
     align-items: center;
 }
 
-.carrouselHighlights {
-    width: 90%;
-}
-
 .subContainer {
     width: 100%;
     display: flex;
@@ -40,14 +36,17 @@
 }
 
 .listContainer {
+    width: 100%;
+    height: 70vh;
+    margin: 20px 0px 100px;
     display: flex;
     flex-direction: column;
+    background: rgb(var(--primaryBG));
+    border-radius: 8px;
     gap: 5px;
-    width: 100%;
-    margin-top: 20px;
-    background: #000;
 }
 
 .d_none {
     display: none !important;
 }
+

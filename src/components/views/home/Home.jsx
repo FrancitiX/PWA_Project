@@ -1,7 +1,11 @@
 import React from "react";
 import App from "../../layout/app";
 import styles from "./home.module.css";
-import Carrousel from "../../elements/slider/Slider";
+import {
+  Carrousel,
+  CarrouselGames,
+  OffersCarousel,
+} from "../../elements/slider/Slider";
 import classNames from "classnames";
 import { GameItem } from "../../elements/gameItem/GameItems";
 import SubFooter from "../../elements/subFooter/SubFooter";
@@ -58,14 +62,27 @@ function home() {
           <div className={styles.subContent}>
             <h2>Destacados</h2>
             <div className={styles.carrouselHighlights}>
-              <Carrousel
+              <CarrouselGames
                 data={[
-                  { img: "src/assets/images/EchoesTime/EchoesTimeBG.jpg", link: "/promocion1" },
-                  { img: "/img/banner2.jpg", link: "/promocion2" },
+                  {
+                    img: "src/assets/images/EchoesTime/EchoesTimeBG.jpg",
+                    link: "/promocion1",
+                  },
+                  {
+                    name: "Counter-Strike 2",
+                    img: "/img/cs2-banner.jpg",
+                    images: [
+                      "/img/cs2-1.jpg",
+                      "/img/cs2-2.jpg",
+                      "/img/cs2-3.jpg",
+                      "/img/cs2-4.jpg",
+                    ],
+                    price: "Free to Play",
+                    discount: 0,
+                    platform: "SteamOS + Windows",
+                  },
                   { img: "/img/banner3.jpg", link: "/promocion3" },
                 ]}
-                type="home"
-                manual={true}
               />
             </div>
           </div>
@@ -75,11 +92,41 @@ function home() {
             styles.offert,
             "container",
             styles.mainContent,
-            styles.d_none
           )}
         >
           <div className={styles.subContent}>
             <h2>Ofertas</h2>
+
+            <div className={styles.carrouselOffer}>
+              <OffersCarousel
+                data={[
+                  {
+                    img: "/img/dyinglight.webp",
+                    tag: "EN DIRECTO",
+                    discount: 25,
+                    oldPrice: "Mex$ 999.00",
+                    newPrice: "Mex$ 749.25",
+                    banner: null,
+                  },
+                  {
+                    img: "/img/codbo3.webp",
+                    discount: 67,
+                    oldPrice: "Mex$ 1,199.00",
+                    newPrice: "Mex$ 395.67",
+                    tag: "",
+                    banner: null,
+                  },
+                  {
+                    img: "/img/doom.webp",
+                    discount: 50,
+                    oldPrice: "Mex$ 1,399.00",
+                    newPrice: "Mex$ 699.50",
+                    tag: "★ EN LISTA DE DESEADOS",
+                    banner: "ACTUALIZACIÓN 3 YA DISPONIBLE",
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
 
@@ -87,7 +134,8 @@ function home() {
           className={classNames(
             styles.recomendations,
             "container",
-            styles.mainContent
+            styles.mainContent,
+            styles.d_none
           )}
         >
           <div className={styles.subContent}>
@@ -114,7 +162,7 @@ function home() {
           </div>
         </div>
 
-        <div
+        {/* <div
           className={classNames(
             styles.recomendations,
             "container",
@@ -122,7 +170,7 @@ function home() {
           )}
         >
           <SubFooter />
-        </div>
+        </div> */}
       </main>
     </App>
   );
