@@ -14,7 +14,7 @@ import Game from "./components/views/game/Game";
 import Profile from "./components/views/user/profile/Profile";
 import WishList from "./components/views/user/wishList/WishList";
 import Cart from "./components/views/user/cart/Cart";
-import Library from "./components/views/home/Library/Library";
+import Library from "./components/views/home/library/Library";
 
 navigator.serviceWorker
   .register("/sw.js")
