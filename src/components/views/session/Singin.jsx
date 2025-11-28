@@ -74,6 +74,7 @@ function Singin() {
       if (response.status === "ok") {
         const title = "Usuario registrado correctamente!";
         const message = "Se ah registrado correctamente tu usuario " + formData.username;
+        
         await notifyUser(title, message);
       }
     } catch (err) {
