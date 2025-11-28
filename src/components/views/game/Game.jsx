@@ -3,7 +3,7 @@ import styles from "./Game.module.css";
 import Header from "../../elements/header/Header";
 import Footer from "../../elements/footer/Footer";
 import classNames from "classnames";
-import { games } from "../../../utils/gamesExample";
+import { gamesDetails, games } from "../../../utils/gamesExample";
 import { Link, useParams } from "react-router-dom";
 import { Carrousel } from "../../elements/slider/Slider";
 import SubFooter from "../../elements/subFooter/SubFooter";
@@ -11,53 +11,16 @@ import CommentsSection from "../../elements/comments/Comments";
 
 function Game() {
   const { id } = useParams();
-
   const game = games.find((game) => game.id === parseInt(id));
+  const gameDetails = gamesDetails.find((game) => game.gameID === parseInt(id));
 
-  const gameDetails = {
-    id: 1,
-    name: "EchoesTime",
-    developer: "Skeleton Crew Studio",
-    publisher: "Skeleton Crew Studio",
-    salesPackages: [
-      {
-        name: "Standard Edition",
-        price: 19.99,
-        features: ["Base Game", "Digital Soundtrack"],
-      },
-    ],
-    features: [
-      "Single-player campaign",
-      "Time-manipulation mechanics",
-      "Multiple endings based on player choices",
-    ],
-    control: true,
-    languages: [
-      { name: "English", subtitles: false, voice: false, interface: true },
-      { name: "Spanish", subtitles: true, voice: false, interface: true },
-    ],
-    achievements: [
-      {
-        name: "Time Traveler",
-        description: "Complete the game.",
-        image: "",
-        value: 10,
-        gp: 0,
-      },
-    ],
-    category: ["Adventure", "Indie", "Story Rich"],
-    version: "1.0.0",
-    beta: { status: false, date: "" },
-    notes: [""],
-    images: [
-      "src/assets/images/Covers/EchoesTimeBG.jpg",
-      "src/assets/images/Covers/EchoesTimeBG.jpg",
-    ],
-  };
+  console.log(game);
 
-  console.log(game.image);
-
-  const free = !game.price || game.price === 0 || game.price === "Free";
+  const free =
+    !game.price ||
+    game.price === 0 ||
+    game.price === "Free to play" ||
+    game.price === "Free";
 
   return (
     <>
@@ -67,7 +30,7 @@ function Game() {
         <div className={styles.page}>
           <section className={styles.firstSection}>
             <div className={styles.left}>
-              <Carrousel data={gameDetails.images} type="game" manual={true} />
+              <Carrousel data={game.images} type="game" manual={true} />
             </div>
 
             <div className={styles.right}>
@@ -90,11 +53,11 @@ function Game() {
                 </p>
 
                 <p>
-                  Desarrollador: <span>{gameDetails.developer}</span>
+                  Desarrollador: <span>{game.developer}</span>
                 </p>
 
                 <p>
-                  Distribuidor: <span>{gameDetails.publisher}</span>
+                  Distribuidor: <span>{game.publisher}</span>
                 </p>
               </div>
             </div>
@@ -114,18 +77,16 @@ function Game() {
 
           <section className={classNames("container", styles.gameDetails)}>
             <div className={styles.salesPackages}>
-              <h2 className={styles.subtitle}>
-                Ediciones de {gameDetails.name}
-              </h2>
+              <h2 className={styles.subtitle}>Ediciones de {game.name}</h2>
 
-              <div className={free ? styles.freePack : styles.salesPack}>
+              {/* <div className={free ? styles.freePack : styles.salesPack}>
                 <div className={styles.packInfo}>
                   <h3>Adquirir {game.name}</h3>
 
                   <ul className={styles.featureList}>
                     {/* {pack.features.map((packFeature, idx) => (
                         <li key={idx}>{packFeature}</li>
-                      ))} */}
+                      ))} 
                   </ul>
                 </div>
 
@@ -143,30 +104,106 @@ function Game() {
                     </Link>
                   </div>
                 </div>
+              </div> */}
+
+              <div className={styles.salesPackagesContent}>
+                {gameDetails.salesPackages.map((pack, i) => (
+                  <div
+                    key={i}
+                    className={classNames(
+                      styles.package,
+                      pack.price > 0 ? styles.salesPack : styles.freePack
+                    )}
+                  >
+                    <div className={styles.packInfo}>
+                      {pack.price > 0 ? (
+                        <h3>{pack.name}</h3>
+                      ) : (
+                        <h3>Jugar a {game.name}</h3>
+                      )}
+
+                      <ul className={styles.featureList}>
+                        {pack.features.map((f, idx) => (
+                          <li key={idx}>{f}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className={styles.packBuy}>
+                      {pack.price > 0 ? (
+                        <>
+                          {pack.discount > 0 ? (
+                            <>
+                              <div className={styles.packButtons}>
+                                <span className={styles.discount}>
+                                  {" "}
+                                  -{pack.discount}%{" "}
+                                </span>
+                                <div className={styles.priceDiscount}>
+                                  <span className={styles.oldPrice}>
+                                    Mex$ {pack.price.toFixed(2)}
+                                  </span>
+                                  <span className={styles.price}>
+                                    Mex${" "}
+                                    {(
+                                      pack.price -
+                                      (pack.price * pack.discount) / 100
+                                    ).toFixed(2)}
+                                  </span>
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <span className={styles.price}>
+                                Mex$ {pack.price.toFixed(2)}
+                              </span>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <span className={styles.price}>Free to play</span>
+                        </>
+                      )}
+
+                      <div className={styles.packButtons}>
+                        {pack.price > 0 ? (
+                          <>
+                            <button
+                              className={classNames(
+                                styles.button,
+                                styles.buyButton
+                              )}
+                            >
+                              Comprar
+                            </button>
+                            <button
+                              className={classNames(
+                                styles.button,
+                                styles.cartButton
+                              )}
+                            >
+                              Agregar al carrito
+                            </button>
+                          </>
+                        ) : (
+                          <>
+                            <button
+                              className={classNames(
+                                styles.button,
+                                styles.buyButton
+                              )}
+                            >
+                              Agregar a la biblioteca
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-
-              {gameDetails.salesPackages.map((pack, i) => (
-                <div key={i} className={styles.salesPack}>
-                  <div className={styles.packInfo}>
-                    <h3>{pack.name}</h3>
-
-                    <ul className={styles.featureList}>
-                      {pack.features.map((f, idx) => (
-                        <li key={idx}>{f}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className={styles.packBuy}>
-                    <span className={styles.price}>
-                      Mex$ {pack.price.toFixed(2)}
-                    </span>
-                    <button className={styles.buyButton}>
-                      Agregar al carrito
-                    </button>
-                  </div>
-                </div>
-              ))}
 
               <h3 className={styles.subtitle}>CONTENIDO PARA ESTE JUEGO</h3>
 
@@ -248,18 +285,18 @@ function Game() {
                 <h3>Requisitos mínimos</h3>
                 <ul>
                   <li>
-                    <strong>SO:</strong> Windows 7/8/10 64-bit
+                    <strong>SO:</strong> Windows 95
                   </li>
                   <li>
-                    <strong>Procesador:</strong> Intel Core i5-2400 / AMD
-                    FX-6300
+                    <strong>Procesador:</strong> Intel pentium / AMD
+                    similar
                   </li>
                   <li>
-                    <strong>Memoria:</strong> 8 GB de RAM
+                    <strong>Memoria:</strong> 1 GB de RAM
                   </li>
                   <li>
-                    <strong>Gráficos:</strong> NVIDIA GeForce GTX 660 / AMD
-                    Radeon HD 7870
+                    <strong>Gráficos (opcional):</strong> Intel HD Grafics / AMD
+                    Radeon
                   </li>
                   <li>
                     <strong>DirectX:</strong> Versión 11
@@ -299,12 +336,12 @@ function Game() {
           </div>
         </section>
 
-        <section>
+        {/* <section>
           <div className={classNames("container", styles.recommendations)}>
             <h2>Recomendaciones</h2>
             <Carrousel data={games} type="game" manual={true} />
           </div>
-        </section>
+        </section> */}
 
         <div className={styles.page}>
           <section>

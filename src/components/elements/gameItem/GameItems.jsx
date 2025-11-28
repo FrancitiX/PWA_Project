@@ -23,7 +23,29 @@ const GameItem = ({ game }) => {
         <div>
           <div>
             <h3 className={styles.gameinfo_title}>{game.name}</h3>
-            <p>{game.price}</p>
+
+            {game.price > 0 ? (
+              <>
+                {game.discount > 0 ? (
+                  <>
+                    <p>
+                      ${game.price}.00 MXN{" "}
+                      <span className={styles.totalPrice}>
+                        ${game.totalPrice}.00 MXN
+                      </span>
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p>${game.price}.00 MXN</p>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <p className={styles.freeToPlay}>Free to play</p>
+              </>
+            )}
           </div>
           <p className={styles.description}>{game.description}</p>
           {game.labels &&
@@ -68,17 +90,43 @@ const GameItem = ({ game }) => {
                   </span>
                 ))}
             </div>
-            <span>{game.platform.join(", ")}</span>
+            <span className={styles.platformText}>
+              {game.platform.join(", ")}
+            </span>
           </div>
           <div className={styles.priceContent}>
-            <div className={styles.discount}>
-              <span>{game.discount}</span>
-            </div>
-            <div>
-              <span className={styles.totalPrice}>{game.totalPrice}</span>
-              <p className={styles.price}>{game.price}</p>
-              <span className={styles.date}>{game.date.join(" ")}</span>
-            </div>
+            {game.price > 0 ? (
+              <>
+                {game.discount > 0 ? (
+                  <>
+                    <div className={styles.discount}>
+                      <span>-{game.discount}%</span>
+                    </div>
+                    <div>
+                      <span className={styles.totalPrice}>
+                        ${game.totalPrice}.00 MXN
+                      </span>
+                      <p className={styles.price}>${game.price}.00 MXN</p>
+                      <span className={styles.date}>{game.date.join(" ")}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.priceArea}>
+                      <p className={styles.price}>${game.price}.00 MXN</p>
+                      <span className={styles.date}>{game.date.join(" ")}</span>
+                    </div>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                <div>
+                  <p className={styles.freeToPlay}>Free to play</p>
+                  <span className={styles.date}>{game.date.join(" ")}</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </Link>
@@ -86,8 +134,4 @@ const GameItem = ({ game }) => {
   );
 };
 
-const GameCartItem = ({ game }) => {
-  return <div>gameItem</div>;
-};
-
-export { GameItem, GameCartItem };
+export { GameItem };

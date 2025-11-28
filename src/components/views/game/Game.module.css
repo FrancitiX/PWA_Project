@@ -56,7 +56,12 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 6px;
+}
+
+.actionsButtons {
+    display: flex;
+    gap: 20px;
 }
 
 
@@ -88,7 +93,11 @@
     font-size: 13px;
 }
 
-
+.salesPackagesContent {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
 
 
@@ -102,19 +111,29 @@
 .subtitle {
     color: rgb(var(--titleColor));
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 0;
 }
 
-.salesPack {
+.package {
     min-height: 80px;
     padding: 10px;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    border-radius: 5px;
+}
+
+.freePack {
+    background: linear-gradient(to right, rgb(var(--specialBG)), rgba(42, 65, 27, 0.5));
+    border: 1px solid rgba(55, 255, 0, 0.5);
+}
+
+
+.salesPack {
     background: linear-gradient(to right, rgb(var(--specialBG)), rgba(23, 23, 23, 0.5));
     border: 1px solid rgba(var(--specialTextColor), 0.5);
-    border-radius: 8px;
 }
 
 .gamePurchase {
@@ -142,33 +161,81 @@
 
 .packBuy {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
     gap: 10px;
 }
 
+.packButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.oldPrice {
+    top: -20px;
+    position: absolute;
+    padding: 8px 12px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+
 .price {
-    background: #000;
+    background: rgb(var(--footerBG), 0.5);
     color: #fff;
     padding: 8px 12px;
     border-radius: 3px;
+    font-weight: 600;
+}
+
+.priceDiscount {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.discount {
+    padding: 5px 5px;
+    font-weight: 800;
+    font-size: 20px;
+    color: rgba(255, 255, 255);
+    background: rgb(35, 67, 26);
+    border: 1px solid rgb(60, 255, 0);
+    border-radius: 5px;
+}
+
+.button {
+    padding: 7px 15px;
     font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    border: none;
 }
 
 .buyButton {
     background: #5cb85c;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 3px;
-    color: #fff;
-    cursor: pointer;
-    font-weight: bold;
+    color: rgba(255, 255, 255);
 }
 
 .buyButton:hover {
     background: #4b9e4b;
 }
 
-/* EXTRA CONTENT */
+.cartButton {
+    background: rgb(23, 98, 172);
+    color: rgb(255, 255, 255);
+}
+
+.cartButton:hover {
+    background: rgb(20, 76, 132);
+}
+
 .extraContent {
     margin-top: 10px;
     background: #1b2838;
@@ -182,7 +249,6 @@
     padding: 4px 0;
 }
 
-/* === RIGHT === DETAILS SECTION === */
 
 .details {
     background: rgb(var(--footerBG));
@@ -236,7 +302,6 @@
 }
 
 
-/* Seccion de requerimientos del sistema */
 
 .requirementsSection {
     width: 100%;
@@ -249,11 +314,9 @@
     width: 80%;
     padding: 40px 0;
     color: #e0e0e0;
-    /* font-family: 'Segoe UI', sans-serif; */
 }
 
 .requirements h2 {
-    /* margin-bottom: 25px; */
     padding-bottom: 1px;
     border-bottom: 2px solid rgb(var(--primaryBG));
     color: #fff;
@@ -299,7 +362,7 @@
 }
 
 .requirementBox li strong {
-    color: #888;
+    color: #89a0c4;
     width: 120px;
     display: inline-block;
     font-weight: normal;

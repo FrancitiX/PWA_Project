@@ -12,6 +12,7 @@ import SubFooter from "../../elements/subFooter/SubFooter";
 import { games } from "../../../utils/gamesExample";
 
 function home() {
+
   const test = () => {
     try {
       const data = {};
@@ -40,16 +41,21 @@ function home() {
   const Covers = [
     {
       img: "src/assets/images/Covers/EchoesTimeBG.jpg",
-      link: "/promocion1",
+      link: "/game/1/EchoesTime",
     },
   ];
+
+  const offertsGames = games.find((game) => game.discount > 0);
+
+  console.log(offertsGames);
+  
 
   const gamesList = games;
 
   return (
     <App>
       <main className={styles.main}>
-        <div className={styles.carrousel}>
+        <div className={styles.firstImage}>
           <Carrousel data={Covers} type="image" manual={false} />
         </div>
         <div
@@ -62,69 +68,19 @@ function home() {
           <div className={styles.subContent}>
             <h2>Destacados</h2>
             <div className={styles.carrouselHighlights}>
-              <CarrouselGames
-                data={[
-                  {
-                    img: "src/assets/images/EchoesTime/EchoesTimeBG.jpg",
-                    link: "/promocion1",
-                  },
-                  {
-                    name: "Counter-Strike 2",
-                    img: "/img/cs2-banner.jpg",
-                    images: [
-                      "/img/cs2-1.jpg",
-                      "/img/cs2-2.jpg",
-                      "/img/cs2-3.jpg",
-                      "/img/cs2-4.jpg",
-                    ],
-                    price: "Free to Play",
-                    discount: 0,
-                    platform: "SteamOS + Windows",
-                  },
-                  { img: "/img/banner3.jpg", link: "/promocion3" },
-                ]}
-              />
+              <CarrouselGames />
             </div>
           </div>
         </div>
         <div
-          className={classNames(
-            styles.offert,
-            "container",
-            styles.mainContent,
-          )}
+          className={classNames(styles.offert, "container", styles.mainContent)}
         >
           <div className={styles.subContent}>
             <h2>Ofertas</h2>
 
             <div className={styles.carrouselOffer}>
               <OffersCarousel
-                data={[
-                  {
-                    img: "/img/dyinglight.webp",
-                    tag: "EN DIRECTO",
-                    discount: 25,
-                    oldPrice: "Mex$ 999.00",
-                    newPrice: "Mex$ 749.25",
-                    banner: null,
-                  },
-                  {
-                    img: "/img/codbo3.webp",
-                    discount: 67,
-                    oldPrice: "Mex$ 1,199.00",
-                    newPrice: "Mex$ 395.67",
-                    tag: "",
-                    banner: null,
-                  },
-                  {
-                    img: "/img/doom.webp",
-                    discount: 50,
-                    oldPrice: "Mex$ 1,399.00",
-                    newPrice: "Mex$ 699.50",
-                    tag: "★ EN LISTA DE DESEADOS",
-                    banner: "ACTUALIZACIÓN 3 YA DISPONIBLE",
-                  },
-                ]}
+                data={offertsGames}
               />
             </div>
           </div>

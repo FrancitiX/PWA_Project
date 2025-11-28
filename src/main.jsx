@@ -14,6 +14,7 @@ import Game from "./components/views/game/Game";
 import Profile from "./components/views/user/profile/Profile";
 import WishList from "./components/views/user/wishList/WishList";
 import Cart from "./components/views/user/cart/Cart";
+import Library from "./components/views/home/Library/Library";
 
 navigator.serviceWorker
   .register("/sw.js")
@@ -25,6 +26,12 @@ db.onupgradeneeded = function (event) {
   let DB = event.target.result;
   if (!DB.objectStoreNames.contains("user")) {
     DB.createObjectStore("user", { autoIncrement: true });
+  }
+  if (!DB.objectStoreNames.contains("my games")) {
+    DB.createObjectStore("my games", { autoIncrement: true });
+  }
+  if (!DB.objectStoreNames.contains("cart")) {
+    DB.createObjectStore("cart", { autoIncrement: true });
   }
 };
 
@@ -43,6 +50,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/singin" element={<Singin />} />
           <Route path="/profile/:user" element={<Profile />} />
+          <Route path="/Library/:user" element={<Library />} />
 
           {/* Home y vistas generales */}
           <Route path="/game/:id/:game" element={<Game />} />

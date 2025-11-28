@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styles from "./Slider.module.css";
 import classNames from "classnames";
+import { games } from "../../../utils/gamesExample";
 
 function Carrousel({ data, type, manual }) {
   const items = data && data.length > 0 ? data : [];
@@ -48,21 +49,17 @@ function Carrousel({ data, type, manual }) {
                   />
                 </a>
               ) : (
-                <a href={item.link}>
-                  <div className={styles.gameSlide}>
-                    <img
-                      src={item.img}
-                      alt="Game Slide"
-                      className={styles.gameImage}
-                    />
-                    <div className={styles.gameInfo}>
-                      <h3 className={styles.gameTitle}>{item.name}</h3>
-                      <p className={styles.gameDescription}>
-                        {item.description}
-                      </p>
-                    </div>
+                <div className={styles.gameSlide}>
+                  <img
+                    src={item.img}
+                    alt="Game Slide"
+                    className={styles.gameImage}
+                  />
+                  <div className={styles.gameInfo}>
+                    <h3 className={styles.gameTitle}>{item.name}</h3>
+                    <p className={styles.gameDescription}>{item.description}</p>
                   </div>
-                </a>
+                </div>
               )}
             </SwiperSlide>
           ))
@@ -74,8 +71,8 @@ function Carrousel({ data, type, manual }) {
   );
 }
 
-function CarrouselGames({ data }) {
-  const items = data && data.length > 0 ? data : [];
+function CarrouselGames() {
+  const items = games;
 
   return (
     <>
@@ -87,45 +84,50 @@ function CarrouselGames({ data }) {
         autoplay={{ delay: 5000 }}
         navigation
       >
-        {items.map((item, index) => (
-          <SwiperSlide key={index}>
-            <div className={styles.slideGames}>
-              <div className={styles.left}>
-                <img src={item.img} className={styles.mainImage} />
-              </div>
-
-              <div className={styles.right}>
-                <h2 className={styles.title}>{item.name}</h2>
-
-                <div className={styles.thumbs}>
-                  {item.images?.map((img, i) => (
-                    <img key={i} src={img} className={styles.thumb} />
-                  ))}
+        <div className={styles.carrouselBorders}>
+          {items.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className={styles.slideGames}>
+                <div className={styles.left}>
+                  <img src={item.image} className={styles.mainImage} />
                 </div>
 
-                <p className={styles.available}>Ya disponible</p>
+                <div className={styles.right}>
+                  <h2 className={styles.title}>{item.name}</h2>
 
-                <button className={styles.tag}>Lo más vendido</button>
+                  <div className={styles.thumbs}>
+                    {item.images?.map((img, i) => (
+                      <img key={i} src={img} className={styles.thumb} />
+                    ))}
+                  </div>
 
-                <p className={styles.price}>
-                  {item.discount > 0 && (
-                    <span className={styles.discount}>-{item.discount}%</span>
-                  )}
-                  <span className={styles.finalPrice}>${item.price}</span>
-                </p>
+                  <p className={styles.available}>Ya disponible</p>
 
-                <p className={styles.platform}>{item.platform}</p>
+                  <button className={styles.tag}>Lo más vendido</button>
+
+                  <p className={styles.price}>
+                    {item.discount > 0 && (
+                      <span className={styles.discount}>-{item.discount}%</span>
+                    )}
+                    <span className={styles.finalPrice}>${item.price}</span>
+                  </p>
+
+                  <p className={styles.platform}>{item.platform}</p>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          ))}
+        </div>
       </Swiper>
     </>
   );
 }
 
 function OffersCarousel({ data }) {
-  const games = Array.isArray(data) ? data : [];
+  const games = Array.isArray(data) ? data : [data];
+
+  console.log(data);
+  
 
   return (
     <>
@@ -143,7 +145,7 @@ function OffersCarousel({ data }) {
             <div className={styles.card}>
               {game.tag && <div className={styles.tag}>{game.tag}</div>}
 
-              <img src={game.img} className={styles.image} />
+              <img src={game.image} className={styles.image} />
 
               {game.banner && (
                 <div className={styles.banner}>{game.banner}</div>
@@ -153,8 +155,8 @@ function OffersCarousel({ data }) {
                 <div className={styles.discount}>-{game.discount}%</div>
 
                 <div className={styles.prices}>
-                  <span className={styles.oldPrice}>{game.oldPrice}</span>
-                  <span className={styles.newPrice}>{game.newPrice}</span>
+                  <span className={styles.oldPrice}>${game.totalPrice}.00 MXN</span>
+                  <span className={styles.newPrice}>${game.price}.00 MXN</span>
                 </div>
               </div>
             </div>

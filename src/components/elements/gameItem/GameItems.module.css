@@ -9,11 +9,13 @@
     transition: 0.2s ease;
     cursor: pointer;
     box-sizing: border-box;
+    z-index: 1;
 }
 
 .gameContainer:hover {
     background: #1f2f44;
     transform: scale(1.01);
+    z-index: 100;
 }
 
 .gameInfo {
@@ -31,7 +33,7 @@
     opacity: 0;
     pointer-events: none;
     transition: right 0.3s ease, opacity 0.3s ease;
-    z-index: 30;
+    z-index: 50;
 }
 
 .gameContainer:hover .gameInfo {
@@ -186,4 +188,24 @@
 .date {
     color: #87a0b6;
     font-size: 13px;
+}
+
+.priceArea {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.freeToPlay {
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: rgba(255, 255, 255);
+    background: rgb(76, 107, 34);
+    border-radius: 5px;
+}
+
+.platformText {
+    color: rgba(255, 255, 255);
 }
