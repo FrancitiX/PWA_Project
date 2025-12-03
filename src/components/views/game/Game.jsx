@@ -14,6 +14,7 @@ import {
   saveGame,
 } from "../../../services/localData";
 import App from "../../layout/App";
+import { notifyUser, sendNotification } from "../../../services/api/notifications";
 
 function Game() {
   const { id } = useParams();
@@ -36,12 +37,29 @@ function Game() {
       alert("Este juego ya está en tu biblioteca.");
     } else {
       alert("Juego agregado a tu biblioteca.");
+
+      try {
+        if (Notification.permission === "default") {
+          await Notification.requestPermission();
+        }
+
+        if ("serviceWorker" in navigator) {
+          const title = "Se a agregado un nuevo juego a tu biblioteca";
+          const message =
+            "Se agrego " + game.name + " a tu biblioteca, ya puedes jugarlo.";
+
+          await notifyUser(title, message);
+        }
+        
+      } catch (err) {
+        console.error("Error al registrar usuario:", err);
+      }
     }
   };
 
   useEffect(() => {
-    existsInLibrary(game.key).then(setAlreadyOwned);
-  }, []);
+    existsInLibrary(game.id).then(setAlreadyOwned);
+  }, [game.id]);
 
   return (
     <>
@@ -85,9 +103,7 @@ function Game() {
 
             <section className={styles.Actions}>
               <div className={styles.actionsButtons}>
-                <button className={styles.favButton}>
-                  Agregar a favoritos
-                </button>
+                <button className={styles.favButton}>Agregar a mi Lista</button>
                 <button>No me interesa</button>
                 <button>Ignorar</button>
               </div>
@@ -379,11 +395,7 @@ function Game() {
           </div>
         </section> */}
 
-          <div className={styles.page}>
-            <section>
-              <CommentsSection />
-            </section>
-          </div>
+          <CommentsSection />
         </main>
       </App>
     </>

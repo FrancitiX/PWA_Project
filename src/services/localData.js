@@ -29,7 +29,7 @@ function addUserToDB(userData) {
     const db = event.target.result;
 
     if (!db.objectStoreNames.contains("user")) {
-      db.createObjectStore("user", { autoIncrement: true });
+      db.createObjectStore("user", { keyPath: "id", autoIncrement: true });
     }
   };
 
@@ -200,7 +200,7 @@ function existsInLibrary(gameId) {
       const getRequest = store.get(gameId);
 
       getRequest.onsuccess = () => {
-        resolve(!!getRequest.result); // true si existe, false si no
+        resolve(!!getRequest.result)
       };
 
       getRequest.onerror = (err) => reject(err);

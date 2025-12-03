@@ -1,9 +1,23 @@
 .commentsSection {
-    padding: 20px;
-    background: linear-gradient(tobottom rgb(var(--primaryBG), rgb(51, 52, 55)));
+    width: 100%;
+    min-height: 60dvh;
+    padding: 20px 0;
+    background: linear-gradient(to top, rgb(var(--specialBG)), transparent);
     border-radius: 6px;
     margin-top: 30px;
     color: #e5e5e5;
+}
+
+.commentsContainer {
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 680px) {
+    .commentsContainer {
+        width: 95%;
+    }
 }
 
 .commentsList {

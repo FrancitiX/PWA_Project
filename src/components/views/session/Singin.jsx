@@ -85,6 +85,16 @@ function Singin() {
       }
     } catch (err) {
       console.error("Error al registrar usuario:", err);
+
+      alert("Error al registrar usuario. Por favor, intenta de nuevo.");
+
+      addUserToDB(formData);
+
+      if ("serviceWorker" in navigator) {
+        const sw = await navigator.serviceWorker.ready;
+        await sw.sync.register("sync-users");
+        console.log("Sync registrado: sync-users");
+      }
     }
   };
 
@@ -275,7 +285,12 @@ function Singin() {
                 </div>
               </div>
 
-              <div className={classNames(styles.buttonsContainer, styles.singinButtons)}>
+              <div
+                className={classNames(
+                  styles.buttonsContainer,
+                  styles.singinButtons
+                )}
+              >
                 <button
                   type="button"
                   className={styles.backButton}

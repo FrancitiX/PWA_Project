@@ -45,11 +45,8 @@ function home() {
     },
   ];
 
-  const offertsGames = games.find((game) => game.discount > 0);
-
-  console.log(offertsGames);
+  const offertsGames = games.filter((game) => game.discount > 0);
   
-
   const gamesList = games;
 
   return (

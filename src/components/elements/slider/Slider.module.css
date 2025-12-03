@@ -15,7 +15,13 @@
 
 .game {
     height: 400px;
-    width: 80%;
+    /* width: 80%; */
+}
+
+@media screen and (max-width: 680px) {
+    .game {
+        height: 250px;
+    }
 }
 
 .games {

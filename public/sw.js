@@ -4,17 +4,7 @@ const DYNAMIC_CACHE = "dynamic_v1.0";
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(APP_SHELL_CACHE).then((cache) => {
-      // return cache.addAll([
-      //   "/src/index.css",
-      //   "/src/components/views/home/Home.jsx",
-      //   "/src/components/views/home/home.module.css",
-      //   "src/components/views/offline/Offline.jsx",
-      //   "src/components/views/offline/offline.module.css",
-      //   "public/Gafoa.png",
-      //   "src/components/views/session/Singin.jsx",
-      //   "src/components/views/session/session.module.css",
-      // ]);
-      return cache.addAll(["/", "/Gafoa.png"]);
+      return cache.addAll(["/", "/Gafoa.png", "/images/SessionBG.webp"]);
     })
   );
   self.skipWaiting();
@@ -71,19 +61,60 @@ self.addEventListener("sync", (event) => {
 });
 
 async function syncUsers() {
-  const dbRequest = self.indexedDB.open("GafoaDB", 1);
-  dbRequest.onsuccess = (event) => {
-    const db = event.target.result;
-    const tx = db.transaction("user", "readonly");
-    const store = tx.objectStore("user");
-    const getAllRequest = store.getAll();
+  return new Promise((resolve, reject) => {
+    const dbRequest = indexedDB.open("GafoaDB", 1);
 
-    getAllRequest.onsuccess = () => {
-      const users = getAllRequest.result;
-      console.log("Usuarios pendientes de sync:", users);
-      // Aquí podrías enviar al backend
+    dbRequest.onsuccess = async (event) => {
+      const db = event.target.result;
+      const tx = db.transaction("user", "readwrite");
+      const store = tx.objectStore("user");
+
+      const getAll = store.getAll();
+
+      getAll.onsuccess = async () => {
+        const users = getAll.result;
+
+        if (users.length === 0) {
+          console.log("No hay usuarios por sincronizar.");
+          return resolve();
+        }
+
+        for (let user of users) {
+          try {
+            const resp = await fetch("https://pwa-project-back.onrender.com/api/singIn", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(user),
+            });
+
+            // const json = await resp.json();
+            let json = null;
+            try {
+              json = await resp.clone().json();
+            } catch (e) {
+              console.error("Respuesta no es JSON:", await resp.text());
+              continue; // saltar este usuario
+            }
+
+            if (json.status === "ok") {
+              // Si se registró correctamente, eliminarlo de IndexedDB
+              const deleteTx = db.transaction("user", "readwrite");
+              deleteTx.objectStore("user").delete(user.id);
+              console.log("Usuario sincronizado y eliminado:", user.username);
+            }
+          } catch (error) {
+            console.error("Error sincronizando usuario:", error);
+          }
+        }
+
+        resolve();
+      };
     };
-  };
+
+    dbRequest.onerror = reject;
+  });
 }
 
 self.addEventListener("push", (event) => {

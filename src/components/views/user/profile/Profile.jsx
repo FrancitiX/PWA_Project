@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Profile.module.css";
 import classNames from "classnames";
 import App from "../../../layout/App";
+import { getUserData } from "../../../../services/auth/users";
 
 const userData = {
   username: "FrancitiX",
@@ -10,45 +11,33 @@ const userData = {
   flagCode: "mx",
   description:
     "La vida es un sube y baja (o un elevador) dicen por ahí, pero parece que el mío esta descompuesto porque no sube por mas que intento",
-  level: 7,
-  xp: 236,
+  level: 1,
+  xp: '236',
   badgeTitle: "Apilador Perspicaz",
-  recentHours: "20.9 h",
-  gamesCount: 43,
-  badgesCount: 5,
+  recentHours: "0",
+  gamesCount: 0,
+  badgesCount: 0,
   avatarUrl:
     "https://avatars.cloudflare.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg", // Tu avatar de ejemplo
   badgeIconUrl:
     "https://community.cloudflare.steamstatic.com/public/images/badges/02_xp/25.png", // Icono de la insignia 25+
-  recentActivity: [
-    {
-      id: 550,
-      name: "Left 4 Dead 2",
-      cover:
-        "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/550/header.jpg",
-      hoursTotal: 51,
-      lastPlayed: "27 NOV",
-      achievements: { unlocked: 25, total: 101 },
-    },
-    {
-      id: 431960,
-      name: "Wallpaper Engine",
-      cover:
-        "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/431960/header.jpg",
-      hoursTotal: 532,
-      lastPlayed: "24 NOV",
-      achievements: { unlocked: 7, total: 17 },
-    },
-  ],
+  recentActivity: [],
   badges: [
-    "https://community.cloudflare.steamstatic.com/public/images/badges/01_community/community02_54.png",
-    "https://community.cloudflare.steamstatic.com/public/images/badges/02_xp/25.png",
-    "https://community.cloudflare.steamstatic.com/public/images/badges/13_years/6_54.png",
-    "https://community.cloudflare.steamstatic.com/public/images/badges/30_steamawards/2023_nominations_54.png",
   ],
 };
 
 function Profile() {
+  const [user, setUser] = useState(null);
+
+  const getData = async () => {
+    const userData = await getUserData();
+    setUser(userData);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <App>
       <div className={styles.profileBackground}>
@@ -64,7 +53,7 @@ function Profile() {
               </div>
               <div className={styles.headerInfo}>
                 <h1 className={styles.username}>
-                  {userData.username}{" "}
+                  {user ? user.username : "Cargando..."}{" "}
                   {/* <span className={styles.dropdownArrow}>▼</span> */}
                 </h1>
                 <p className={styles.subInfo}>
@@ -88,7 +77,7 @@ function Profile() {
               <div className={styles.sectionTitleRow}>
                 <h3>Juegos adquiridos recientemente</h3>
                 <span className={styles.recentHours}>
-                  {userData.recentHours} en estas semanas
+                  {userData.recentHours} recientes
                 </span>
               </div>
 
@@ -184,7 +173,6 @@ function Profile() {
               <div className={styles.linkItem}>Inventario</div>
               <div className={styles.linkItem}>Capturas</div>
               <div className={styles.linkItem}>Videos</div>
-              <div className={styles.linkItem}>Artículos de Workshop</div>
             </div>
           </div>
         </div>

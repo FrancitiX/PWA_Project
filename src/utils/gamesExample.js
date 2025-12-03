@@ -94,7 +94,7 @@ const gamesDetails = [
     version: "1.0.0",
     beta: { status: false, date: "" },
     notes: [""],
-    zise: { size: 10, type: "GB"},
+    zise: { size: 10, type: "GB" },
   },
   {
     gameID: 2,
@@ -146,11 +146,7 @@ const gamesDetails = [
         features: ["Juego Base", "Orden de 3 tacos de asada"],
       },
     ],
-    features: [
-      "Prueba",
-      "No es un juego",
-      "Something in the way",
-    ],
+    features: ["Prueba", "No es un juego", "Something in the way"],
     control: true,
     languages: [
       { name: "English", subtitles: false, voice: false, interface: true },
@@ -178,5 +174,50 @@ const gamesDetails = [
     notes: [""],
   },
 ];
+
+const userDataExample = {
+  username: "FrancitiX",
+  realName: "フランシスコ",
+  country: "Mexico",
+  flagCode: "mx",
+  description:
+    "La vida es un sube y baja (o un elevador) dicen por ahí, pero parece que el mío esta descompuesto porque no sube por mas que intento",
+  level: 7,
+  xp: 236,
+  badgeTitle: "Apilador Perspicaz",
+  recentHours: "20.9 h",
+  gamesCount: 43,
+  badgesCount: 5,
+  avatarUrl:
+    "https://avatars.cloudflare.steamstatic.com/fef49e7fa7e1997310d705b2a6158ff8dc1cdfeb_full.jpg", // Tu avatar de ejemplo
+  badgeIconUrl:
+    "https://community.cloudflare.steamstatic.com/public/images/badges/02_xp/25.png", // Icono de la insignia 25+
+  recentActivity: [
+    {
+      id: 550,
+      name: "Left 4 Dead 2",
+      cover:
+        "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/550/header.jpg",
+      hoursTotal: 51,
+      lastPlayed: "27 NOV",
+      achievements: { unlocked: 25, total: 101 },
+    },
+    {
+      id: 431960,
+      name: "Wallpaper Engine",
+      cover:
+        "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/431960/header.jpg",
+      hoursTotal: 532,
+      lastPlayed: "24 NOV",
+      achievements: { unlocked: 7, total: 17 },
+    },
+  ],
+  badges: [
+    "https://community.cloudflare.steamstatic.com/public/images/badges/01_community/community02_54.png",
+    "https://community.cloudflare.steamstatic.com/public/images/badges/02_xp/25.png",
+    "https://community.cloudflare.steamstatic.com/public/images/badges/13_years/6_54.png",
+    "https://community.cloudflare.steamstatic.com/public/images/badges/30_steamawards/2023_nominations_54.png",
+  ],
+};
 
 export { games, gamesDetails };

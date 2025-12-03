@@ -50,7 +50,7 @@
 .Actions {
     margin-top: 15px;
     margin-bottom: 50px;
-    width: 100%;
+    /* width: 100%; */
     background: rgb(var(--footerBG));
     display: flex;
     align-items: center;
@@ -64,6 +64,38 @@
     gap: 20px;
 }
 
+.buttonWishList {
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(var(--specialTextColor), 0.8);
+    background: linear-gradient(130deg, rgba(30, 104, 154, 0.7), rgb(72, 140, 186));
+    border: none;
+    transition: all 0.5s;
+}
+
+.buttonWishList:hover {
+    color: rgb(var(--white));
+    background: linear-gradient(130deg, rgba(22, 78, 115, 0.7), rgb(70, 122, 157));
+}
+
+.actionsButtons button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(var(--specialTextColor), 0.8);
+    background: rgb(70, 122, 157, 0.5);
+    border: 1px solid rgb(var(--specialTextColor), 0.8);
+    transition: all 0.3s;
+}
+
+.actionsButtons button:hover {
+    color: rgb(var(--white));
+    background: rgb(70, 122, 157, 0.8);
+    border: 1px solid rgb(var(--specialTextColor), 1);
+}
 
 .title {
     color: #fff;
@@ -82,13 +114,15 @@
 
 .tags {
     margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .tags span {
     background: #324b66;
     padding: 6px 10px;
     border-radius: 4px;
-    margin-right: 8px;
     color: #c6d4df;
     font-size: 13px;
 }
@@ -269,7 +303,6 @@
     color: #fff;
 }
 
-/* BADGES */
 .badges span {
     background: #324b66;
     padding: 6px 12px;
@@ -300,8 +333,6 @@
 .languagesTable td {
     color: #c6d4df;
 }
-
-
 
 .requirementsSection {
     width: 100%;
@@ -368,6 +399,26 @@
     font-weight: normal;
 }
 
+@media screen and (max-width: 1100px) {
+    .page {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .page {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .firstSection {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
 @media (max-width: 768px) {
     .requirementsBoxes {
         flex-direction: column;
@@ -379,5 +430,144 @@
         display: block;
         margin-bottom: 4px;
         font-weight: bold;
+    }
+}
+
+
+@media (max-width: 680px) {
+
+    .page {
+        margin-top: 10px;
+    }
+
+    .left {
+        height: 250px;
+        order: 1;
+    }
+
+    .right {
+        background: transparent;
+        order: 0;
+    }
+
+    .gameImage {
+        display: none;
+    }
+
+    .gameDetails {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .Actions {
+        flex-direction: column;
+        justify-content: center;
+        background: transparent;
+        gap: 15px;
+    }
+
+    .actionsButtons button {
+        flex: 1;
+        text-align: center;
+    }
+
+    .actionsButtons {
+        width: 100%;
+        gap: 10px;
+    }
+
+    .buttonWishList {
+        width: 100%;
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .package {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .packInfo {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+    }
+
+    .packBuy {
+        width: 100%;
+        flex-direction: row;
+        /* Precio a la izq, botón a la der */
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .packButtons {
+        flex-direction: column;
+        /* Botones de compra apilados si son dos */
+        align-items: flex-end;
+    }
+
+    /* Ajuste de precios en móvil */
+    .oldPrice {
+        position: static;
+        /* Quitamos absolute para que no se encime */
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+
+    .priceDiscount {
+        align-items: flex-end;
+    }
+
+    /* --- Tabla de Idiomas --- */
+    /* Hacemos que la tabla tenga scroll horizontal si no cabe */
+    .languagesTable {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .details {
+        padding: 15px;
+    }
+
+    .packBuy {
+        flex-direction: column;
+        /* Precio arriba, botón abajo */
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .packButtons {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+
+    .priceDiscount {
+        width: 100%;
+        align-items: center;
+        justify-content: end;
+        flex-direction: row;
+    }
+
+    .title {
+        font-size: 22px;
+    }
+
+    .button {
+        width: 100%;
+        /* Botones de comprar full width */
+        text-align: center;
+    }
+}
+
+/* 2. TAMAÑO MÓVIL (Celulares - menos de 768px) */
+@media (max-width: 768px) {
+
+    .requirements {
+        width: 95%;
     }
 }

@@ -20,8 +20,8 @@ export default function CommentsSection() {
   };
 
   return (
-    <section>
-      <div className={classNames("container", styles.commentsSection)}>
+    <div className={classNames("container", styles.commentsSection)}>
+      <div className={styles.commentsContainer}>
         <h2>Comentarios</h2>
 
         {comments.length === 0 ? (
@@ -49,6 +49,6 @@ export default function CommentsSection() {
           </button>
         </form>
       </div>
-    </section>
+    </div>
   );
 }

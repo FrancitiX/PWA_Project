@@ -1,18 +1,17 @@
-import React, { Children } from 'react'
-import Header from '../elements/header/Header'
-import Footer from '../elements/footer/Footer'
+import React, { Children } from "react";
+import Header from "../elements/header/Header";
+import Footer from "../elements/footer/Footer";
 
-function App( { children } ) {
+function App({ children }) {
   return (
     <>
-      <Header/>
+      <Header />
 
       {children}
 
       <Footer />
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./session.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "/Gafoa.png";
 import classNames from "classnames";
 import App from "../../layout/App";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { login } from "../../../services/api/users";
+import { AuthContext } from "../../../context/AuthContext";
 
 function Login() {
+  const navigate = useNavigate();
+  const { loginSuccess } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     user: "",
@@ -25,7 +29,26 @@ function Login() {
 
   const Login = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    const { user, password, remember } = formData;
+
+    const credentials = {
+      userid: user,
+      password,
+      remember,
+    };
+
+    console.log(credentials);
+    login(credentials)
+      .then((data) => {
+        loginSuccess(data);
+        alert("Inicio de sesión exitoso");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Error al iniciar sesión:", error);
+        // Aquí puedes manejar errores, mostrar mensajes al usuario, etc.
+      });
   };
 
   return (

@@ -15,20 +15,24 @@ import Profile from "./components/views/user/profile/Profile";
 import WishList from "./components/views/user/wishList/WishList";
 import Cart from "./components/views/user/cart/Cart";
 import Library from "./components/views/home/library/Library";
+import { AuthProvider } from "./context/AuthContext";
 
-navigator.serviceWorker
-  .register("/sw.js")
-  .then((reg) => console.log("SW registrado con éxito:", reg))
-  .catch(console.error);
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(() => console.log("Service Worker registrado"))
+    .catch((err) => console.error("Error registrando SW", err));
+}
 
 let db = window.indexedDB.open("GafoaDB", 1);
 db.onupgradeneeded = function (event) {
   let DB = event.target.result;
   if (!DB.objectStoreNames.contains("user")) {
-    DB.createObjectStore("user", { autoIncrement: true });
+    DB.createObjectStore("user", { keyPath: "id", autoIncrement: true });
   }
   if (!DB.objectStoreNames.contains("my games")) {
-    DB.createObjectStore("my games", { autoIncrement: true });
+    const store = DB.createObjectStore("my games", { keyPath: "id" });
+    store.createIndex("by_id", "id", { unique: true });
   }
   if (!DB.objectStoreNames.contains("cart")) {
     DB.createObjectStore("cart", { autoIncrement: true });
@@ -39,33 +43,28 @@ db.onerror = function (event) {
   console.error("Error al abrir IndexedDB:", event.target.errorCode);
 };
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/sw.js")
-    .then(() => console.log("Service Worker registrado"))
-    .catch((err) => console.error("Error registrando SW", err));
-}
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
 
-          {/* Vistas de usuario */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/singin" element={<Singin />} />
-          <Route path="/profile/:user" element={<Profile />} />
-          <Route path="/Library/:user" element={<Library />} />
+            {/* Vistas de usuario */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signin" element={<Singin />} />
+            <Route path="/profile/:user" element={<Profile />} />
+            <Route path="/Library/:user" element={<Library />} />
 
-          {/* Home y vistas generales */}
-          <Route path="/game/:id/:game" element={<Game />} />
-          <Route path="/:user/cart" element={<Cart />} />
+            {/* Home y vistas generales */}
+            <Route path="/game/:id/:game" element={<Game />} />
+            <Route path="/:user/cart" element={<Cart />} />
 
-          {/* Vista offline */}
-          <Route path="/offline" element={<Offline />} />
-        </Routes>
+            {/* Vista offline */}
+            <Route path="/offline" element={<Offline />} />
+          </Routes>
+        </AuthProvider>
       </Layout>
     </BrowserRouter>
   </React.StrictMode>

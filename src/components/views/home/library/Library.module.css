@@ -269,3 +269,67 @@
     font-size: 20px;
     box-shadow: 0 0 10px rgba(102, 192, 244, 0.5);
 }
+
+/* --- RESPONSIVE DESIGN --- */
+
+/* 1. TABLETS (Pantallas medianas: 768px - 1024px) */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+        /* Hacemos la barra lateral un poco más delgada */
+    }
+
+    .mainContent {
+        padding: 20px;
+        /* Reducimos el padding del contenido */
+    }
+}
+
+/* 2. MÓVILES (Celulares: menos de 768px) */
+@media (max-width: 768px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .mainContent {
+        padding: 15px 20px;
+    }
+
+    .topBar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .sortControls {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .gridContainer {
+        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 2fr));
+        padding-bottom: 80px;
+    }
+
+    .cardTitle {
+        opacity: 1;
+        font-size: 11px;
+        white-space: normal;
+        height: auto;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin-top: 5px;
+    }
+
+    .hoverOverlay {
+        display: none;
+    }
+
+    .sizeBadge {
+        padding: 2px 4px;
+        font-size: 10px;
+    }
+}

@@ -1,7 +1,7 @@
 .bgImage {
     width: 100%;
     height: auto;
-    background-image: url(src/assets/images/SessionBG.webp);
+    background-image: url(./images/SessionBG.webp);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
