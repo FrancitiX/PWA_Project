@@ -33,7 +33,8 @@ function Singin() {
       ...prevState,
       [name]: value.trim(),
     }));
-  };
+  }; 
+  // Esto es un comentario
 
   function urlBase64ToUint8Array(base64String) {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
