@@ -1,0 +1,58 @@
+
+.inputSearch {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    padding: 0 5px 0 10px;
+    width: 100%;
+    max-width: 400px;
+    background: rgb(var(--primaryBG));
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.inputSearch:focus-within {
+    background: rgb(var(--primaryBG));
+    /* border: 1px solid rgb(var(--specialColor)); */
+    box-shadow: 0 0 5px rgba(102, 192, 244, 0.4);
+}
+
+.input {
+    background: transparent;
+    border: none;
+    color: rgb(var(--textColor));
+    font-family: "Motiva Sans", Arial, sans-serif;
+    font-size: 14px;
+    width: 100%;
+    padding: 8px 0;
+    outline: none;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.input::placeholder {
+    color: rgb(var(--textColor));
+    font-style: italic;
+    opacity: 0.5;
+}
+
+/* El botón de la lupa */
+.iconButton {
+    background: transparent;
+    border: none;
+    color: #66c0f4;
+    /* Icono azul brillante */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 3px;
+    transition: transform 0.2s;
+}
+
+.iconButton:hover {
+    filter: brightness(1.2);
+    /* Brilla un poco más al pasar el mouse */
+    color: white;
+}

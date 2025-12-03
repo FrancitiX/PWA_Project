@@ -6,11 +6,16 @@ import { Link } from "react-router-dom";
 import Logo from "/Gafoa.png";
 import { singin } from "../../../services/api/users";
 import { addUserToDB } from "../../../services/localData";
-import { notifyUser, sendNotification } from "../../../services/api/notifications";
+import {
+  notifyUser,
+  sendNotification,
+} from "../../../services/api/notifications";
 import classNames from "classnames";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Singin() {
   const [step, setStep] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     paternalName: "",
@@ -73,8 +78,9 @@ function Singin() {
 
       if (response.status === "ok") {
         const title = "Usuario registrado correctamente!";
-        const message = "Se ah registrado correctamente tu usuario " + formData.username;
-        
+        const message =
+          "Se ah registrado correctamente tu usuario " + formData.username;
+
         await notifyUser(title, message);
       }
     } catch (err) {
@@ -112,16 +118,6 @@ function Singin() {
     }
   };
 
-  // navigator.serviceWorker.ready.then(async (reg) => {
-  //   const sub = await reg.pushManager.getSubscription();
-  //   if (sub) {
-  //     console.log("Eliminando suscripción previa...");
-  //     await sub.unsubscribe();
-  //   } else {
-  //     console.log("No había suscripción previa.");
-  //   }
-  // });
-
   const prevStep = () => {
     if (step > 0) setStep(step - 1);
   };
@@ -157,31 +153,29 @@ function Singin() {
                         />
                       </div>
 
-                      <div>
-                        <div className={styles.inputGroup}>
-                          <label htmlFor="paternalName">Apellido paterno</label>
-                          <input
-                            type="text"
-                            id="paternalName"
-                            name="paternalName"
-                            value={formData.paternalName}
-                            onChange={change}
-                            placeholder="Escribe tus apellidos"
-                            required
-                          />
-                        </div>
-                        <div className={styles.inputGroup}>
-                          <label htmlFor="maternalName">Apellido materno</label>
-                          <input
-                            type="text"
-                            id="maternalName"
-                            name="maternalName"
-                            value={formData.maternalName}
-                            onChange={change}
-                            placeholder="Escribe tus apellidos"
-                            required
-                          />
-                        </div>
+                      <div className={styles.inputGroup}>
+                        <label htmlFor="paternalName">Apellido paterno</label>
+                        <input
+                          type="text"
+                          id="paternalName"
+                          name="paternalName"
+                          value={formData.paternalName}
+                          onChange={change}
+                          placeholder="Escribe tus apellidos"
+                          required
+                        />
+                      </div>
+                      <div className={styles.inputGroup}>
+                        <label htmlFor="maternalName">Apellido materno</label>
+                        <input
+                          type="text"
+                          id="maternalName"
+                          name="maternalName"
+                          value={formData.maternalName}
+                          onChange={change}
+                          placeholder="Escribe tus apellidos"
+                          required
+                        />
                       </div>
                     </div>
 
@@ -218,30 +212,59 @@ function Singin() {
                     <div className={styles.slide}>
                       <div className={styles.inputGroup}>
                         <label htmlFor="password">Contraseña</label>
-                        <input
-                          type="password"
-                          id="password"
-                          name="password"
-                          value={formData.password}
-                          onChange={change}
-                          placeholder="Crea una contraseña segura"
-                          required
-                        />
+                        <div className={styles.passwordWrapper}>
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={change}
+                            placeholder="Crea una contraseña"
+                            required
+                          />
+
+                          <button
+                            type="button"
+                            className={styles.togglePasswordBtn}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? (
+                              <FaEyeSlash size={20} />
+                            ) : (
+                              <FaEye size={20} />
+                            )}
+                          </button>
+                        </div>
                       </div>
 
                       <div className={styles.inputGroup}>
                         <label htmlFor="confirmPassword">
                           Confirmar contraseña
                         </label>
-                        <input
-                          type="password"
-                          id="confirmPassword"
-                          name="confirmPassword"
-                          value={formData.confirmPassword}
-                          onChange={change}
-                          placeholder="Vuelve a escribir la contraseña"
-                          required
-                        />
+
+                        <div className={styles.passwordWrapper}>
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={change}
+                            placeholder="Vuelve a escribir la contraseña"
+                            required
+                          />
+
+                          <button
+                            type="button"
+                            className={styles.togglePasswordBtn}
+                            onClick={() => setShowPassword(!showPassword)}
+                          >
+                            {showPassword ? (
+                              <FaEyeSlash size={20} />
+                            ) : (
+                              <FaEye size={20} />
+                            )}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -252,7 +275,7 @@ function Singin() {
                 </div>
               </div>
 
-              <div className={styles.buttonsContainer}>
+              <div className={classNames(styles.buttonsContainer, styles.singinButtons)}>
                 <button
                   type="button"
                   className={styles.backButton}

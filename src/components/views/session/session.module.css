@@ -1,7 +1,7 @@
 .bgImage {
     width: 100%;
     height: auto;
-    background-image: url(src/assets/images/singin_bg.webp);
+    background-image: url(src/assets/images/SessionBG.webp);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -82,6 +82,25 @@
     border-radius: 10px;
 }
 
+.rememberGroup {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+.rememberGroup input[type="checkbox"] {
+    height: 17px;
+    width: 17px;
+}
+
+.rememberGroup label {
+    color: rgb(var(--white), 0.7);
+    font-size: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 
 /* Sing In */
 
@@ -116,25 +135,35 @@
 
 /* Inputs */
 .inputGroup {
+    width: 100%;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
+    align-items: start;
 }
 
 .inputGroup label {
     color: rgb(var(--white), 0.7);
     font-size: 14px;
     margin-bottom: 5px;
+    width: 100%;
+    max-width: 350px;
+    text-align: left;
 }
 
 .inputGroup input {
     padding: 10px;
     font-size: 16px;
-    width: 90%;
+    /* width: 90%; */
     max-width: 350px;
     background-color: #2a2c31;
     border: none;
     border-radius: 5px;
     color: rgb(var(--white));
+
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
 }
 
 /* Botones */
@@ -169,4 +198,88 @@
 .redirectLink a {
     color: #1e90ff;
     text-decoration: none;
+}
+
+
+
+.passwordWrapper {
+    position: relative;
+    /* width: 100%; */
+    max-width: 350px;
+    display: flex;
+
+    width: 100%;
+    max-width: 300px;
+}
+
+.passwordWrapper input {
+    width: 100%;
+    padding-right: 45px;
+    box-sizing: border-box;
+}
+
+.togglePasswordBtn {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.3s ease;
+    z-index: 10;
+}
+
+.togglePasswordBtn:hover {
+    color: rgba(255, 255, 255);
+}
+
+
+@media screen and (max-width: 682px) {
+
+    .subContainer {
+        flex-direction: column;
+    }
+
+    .imageContainer {
+        width: 30%;
+        order: 0;
+    }
+
+    .sliderContainer {
+        width: 90%;
+        order: 1;
+    }
+
+    .formContainer {
+        width: 90%;
+        padding: 20px 10px;
+    }
+
+    .slide label {
+        font-size: 20px;
+    }
+
+    .inputGroup input {
+        width: 100%;
+        font-size: 18px;
+    }
+
+    .loginButton {
+        width: 100%;
+    }
+
+    .singinButtons {
+        margin-top: 15px;
+    }
+
+    .buttonsContainer button {
+        font-size: 18px;
+    }
 }

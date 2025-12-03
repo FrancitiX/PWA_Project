@@ -4,7 +4,6 @@
     justify-content: space-between;
     align-items: center;
     color: white;
-    grid-area: header;
 }
 
 .navContainer {
@@ -32,7 +31,7 @@
 .title {
     font-size: 1.5rem;
     font-weight: bold;
-    margin-right: 1rem;
+    margin: 0px 1rem 0px 0px;
     color: rgb(var(--primaryColor));
     filter: drop-shadow(0 0 5px rgba(var(--primaryColor), 0.5));
     user-select: none;
@@ -53,6 +52,7 @@
 }
 
 .navOptions {
+    min-width: 0px;
     display: flex;
     align-items: center;
     justify-content: end;
@@ -93,13 +93,111 @@
 }
 
 
+/* Responsivo */
+
+.mobileToggle {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    flex-shrink: 0
+}
+
+.navMobile {
+    position: absolute;
+    top: 62px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 62px);
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 100px;
+    background-color: rgb(25, 30, 45);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transition: left 0.3s ease-in-out;
+    z-index: 90;
+}
+
+.navMobile.open {
+    left: 0;
+}
+
+.navMobileLinks {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+.navMobileLinks a {
+    font-size: 24px;
+    color: rgb(var(--textColor));
+    transition: all 0.3s ease;
+}
+
+.navMobileLinks a:hover {
+    color: rgb(var(--primaryColor), 0.8);
+    filter: drop-shadow(0 0 5px rgba(var(--textColor)));
+    transform: scale(1.03);
+}
+
+@media screen and (max-width: 740px) {
+    .navbar {
+        gap: 5px;
+    }
+}
+
+@media screen and (max-width: 682px) {
+
+    .mobileToggle {
+        display: block;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: rgb(var(--textColor));
+    }
+
+    .profileOptions {
+        display: none;
+    }
+
+    .navigationLinks {
+        display: none;
+    }
+
+    .navContainer {
+        padding: 0px 20px;
+    }
+
+    .navMobile {
+        display: flex;
+    }
+
+    .subnav .item {
+        display: none;
+    }
+
+    .inputSearch {
+        width: 100%;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
 /* Subnav styles */
 
 .subnavContainer {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.subnav {                            
+.subnav {
     width: 100%;
     padding: 10px 0px;
     display: flex;
@@ -112,14 +210,9 @@
 .subnav .item {
     color: white;
     text-decoration: none;
-    margin-right: 1.5rem;
     font-weight: bold;
 }
 
 .subnav .item:hover {
     text-decoration: underline;
-}
-
-@media screen && (min-max(700px)) {
-    
 }

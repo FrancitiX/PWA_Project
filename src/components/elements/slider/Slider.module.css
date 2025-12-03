@@ -44,6 +44,7 @@
 
 .slideGames {
     display: flex;
+    /* align-items: center; */
     width: 100%;
     height: 100%;
     background: #0b1522;
@@ -124,9 +125,6 @@
     margin-top: auto;
     opacity: 0.8;
 }
-
-
-
 
 .wrapper {
     height: 200px;
@@ -217,4 +215,38 @@
 
 .carrouselBorders {
     padding: 100px 200px;
+}
+
+@media screen and (max-width: 768px) {
+
+    .slideGames {
+        flex-direction: column;
+    }
+
+    .left {
+        width: 100%;
+        height: 80%;
+    }
+
+    .right {
+        width: 100%;
+        height: 20%;
+    }
+
+    .title {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .thumbs {
+        display: none;
+    }
+
+    .available {
+        display: none;
+    }
+
+    .price {
+        display: none;
+    }
 }

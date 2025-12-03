@@ -102,7 +102,7 @@ const GameItem = ({ game }) => {
                     <div className={styles.discount}>
                       <span>-{game.discount}%</span>
                     </div>
-                    <div>
+                    <div className={styles.priceArea}>
                       <span className={styles.totalPrice}>
                         ${game.totalPrice}.00 MXN
                       </span>
@@ -121,7 +121,7 @@ const GameItem = ({ game }) => {
               </>
             ) : (
               <>
-                <div>
+                <div className={styles.priceArea}>
                   <p className={styles.freeToPlay}>Free to play</p>
                   <span className={styles.date}>{game.date.join(" ")}</span>
                 </div>

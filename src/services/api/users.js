@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACK_URL = "https://pwa-project-back.onrender.com";
+const BACK_URL = "http://localhost:5102";
 
 const singin = async (userData) => {
   try {
@@ -15,6 +15,8 @@ const singin = async (userData) => {
 const login = async (credentials) => {
   try {
     const response = await axios.post(`${BACK_URL}/api/login`, credentials);
+    console.log(response);
+    
     return response.data;
   } catch (error) {
     console.error("Error al iniciar sesión:", error);

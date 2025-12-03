@@ -56,3 +56,20 @@
     display: none !important;
 }
 
+@media screen and (max-width: 1000px) {
+    .subContent {
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .subContent {
+        width: 90%;
+    }
+}
+
+/* @media screen and (max-width: 600px) {
+    .subContent {
+        width: 95%;
+    }
+} */

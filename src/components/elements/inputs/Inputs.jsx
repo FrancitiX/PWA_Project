@@ -1,18 +1,20 @@
-
 import React from "react";
 import styles from "./inputs.module.css";
+import { FaSearch } from "react-icons/fa";
 
-function InputSearch({ value, onChange }) {
+function InputSearch({value, onChange, placeholder = "Buscar..." }) {
   return (
     <div className={styles.inputSearch}>
       <input
         className={styles.input}
         type="text"
-        placeholder="Buscar..."
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
       />
-      <i className={styles.icon}></i>
+      <button className={styles.iconButton}>
+        <FaSearch />
+      </button>
     </div>
   );
 }

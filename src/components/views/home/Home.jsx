@@ -117,16 +117,7 @@ function home() {
             </div>
           </div>
         </div>
-
-        {/* <div
-          className={classNames(
-            styles.recomendations,
-            "container",
-            styles.mainContent
-          )}
-        >
-          <SubFooter />
-        </div> */}
+        
       </main>
     </App>
   );

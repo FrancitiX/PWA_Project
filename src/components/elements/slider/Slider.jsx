@@ -125,10 +125,7 @@ function CarrouselGames() {
 
 function OffersCarousel({ data }) {
   const games = Array.isArray(data) ? data : [data];
-
-  console.log(data);
   
-
   return (
     <>
       <Swiper
@@ -139,6 +136,7 @@ function OffersCarousel({ data }) {
         loop={false}
         autoplay={{ delay: 5000 }}
         className={styles.carouselOffer}
+        style={{overflow: "visible"}}
       >
         {games.map((game, i) => (
           <SwiperSlide key={i}>
